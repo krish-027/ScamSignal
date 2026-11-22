@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { PhoneStage } from '../../components/game/PhoneStage';
 import { PhonePanel } from '../../components/game/PhonePanel';
+import { LockedQuestionHistory } from './LockedQuestionHistory';
 import { Button } from '../../components/ui/Button';
 import { MissionReview } from './MissionReview';
 import { displayChoices } from './choiceOrder';
@@ -16,6 +17,7 @@ import { PARCEL_MISSION } from './data/parcelMission';
 import type { CheckpointId, Clue, GameSessionState, Scene } from '../../types/mission';
 import './investigation.css';
 import './toolDock.css';
+import './phoneNav3A.css';
 
 interface InvestigationPageProps {
   session: GameSessionState;
@@ -61,6 +63,7 @@ export function InvestigationPage({ session, onUpdate, onStart, onReplay, onExit
   const [activeTool, setActiveTool] = useState<PhoneTool>(null);
   const [selectedClueId, setSelectedClueId] = useState<string | null>(null);
   const [pendingChoiceId, setPendingChoiceId] = useState<string | null>(null);
+  const [showQuestionHistory, setShowQuestionHistory] = useState(false);
   const focusReturnRef = useRef<HTMLButtonElement | null>(null);
   const evidenceRowRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const lastEvidenceIdRef = useRef<string | null>(null);
@@ -261,7 +264,7 @@ export function InvestigationPage({ session, onUpdate, onStart, onReplay, onExit
             </button>
           </nav>
           <nav className="phone-system-nav" aria-label="Simulated phone navigation">
-            <button type="button" onClick={onExit} aria-label="Phone Back: return to briefing without undoing decisions">
+            <button type="button" onClick={event => { if (answered > 0) { focusReturnRef.current = event.currentTarget; setShowQuestionHistory(true); } else onExit(); }} aria-label="Phone Back: review previous locked question or return to briefing">
               <ChevronLeft size={21} aria-hidden="true" /><span>Back</span>
             </button>
             <button type="button" onClick={onHome} aria-label="Phone Home: return to ScamSignal home">
@@ -274,6 +277,7 @@ export function InvestigationPage({ session, onUpdate, onStart, onReplay, onExit
         </PhoneStage>
       </main>
 
+      {showQuestionHistory && <LockedQuestionHistory record={record} definition={MISSION} onClose={() => setShowQuestionHistory(false)} returnFocusTo={focusReturnRef.current} />}
       {activeTool && (
         <PhonePanel
           title={activeTool === 'evidence' ? selectedClue ? `Evidence: ${selectedClue.sourceLabel}` : 'Evidence Locker'

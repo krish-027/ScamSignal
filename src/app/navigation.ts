@@ -1,12 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 
-export type AppRoute = 'home' | 'briefing' | 'preview' | 'investigate' | 'not-found';
+export type AppRoute = 'home' | 'briefing' | 'preview' | 'investigate' | 'not-found' | 'internship';
 
 const ROUTE_HASHES: Record<AppRoute, string> = {
   home: '#/',
   briefing: '#/briefing',
   preview: '#/preview',
   investigate: '#/investigate',
+  internship: '#/internship',
   'not-found': '#/not-found',
 };
 
@@ -16,6 +17,7 @@ export function getRouteFromHash(rawHash: string): AppRoute {
   if (normalized === 'briefing') return 'briefing';
   if (normalized === 'preview') return 'preview';
   if (normalized === 'investigate') return 'investigate';
+  if (normalized === 'internship') return 'internship';
   return 'not-found';
 }
 
@@ -25,6 +27,7 @@ function describeRoute(route: AppRoute): string {
     case 'briefing': return 'Mission 1 Briefing: The Missing Package.';
     case 'preview': return 'Mission 1 Simulation Preview.';
     case 'investigate': return 'Mission 1: Interactive Investigation.';
+    case 'internship': return 'Mission 2: The Dream Internship.';
     case 'not-found': return 'Requested page not found.';
   }
 }

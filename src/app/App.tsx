@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from './navigation';
 import { GlobalErrorBoundary } from '../components/common/GlobalErrorBoundary';
 import { HomePage } from '../features/home/HomePage';
+import { InternshipPage } from '../features/missions/internship/InternshipPage';
 import { MissionBriefingPage } from '../features/missions/MissionBriefingPage';
 import { SimulationPreviewPage } from '../features/missions/SimulationPreviewPage';
 import { InvestigationPage } from '../features/missions/InvestigationPage';
@@ -30,7 +31,7 @@ export const App: React.FC = () => {
   const renderCurrentView = () => {
     switch (currentRoute) {
       case 'home':
-        return <HomePage onStart={() => navigateTo('briefing')} />;
+        return <HomePage onStart={() => navigateTo('briefing')} onStartInternship={() => navigateTo('internship')} />;
 
       case 'briefing':
         return (
@@ -62,6 +63,8 @@ export const App: React.FC = () => {
           />
         );
 
+      case 'internship':
+        return <InternshipPage onExit={() => navigateTo('home')} />;
       case 'not-found':
       default:
         return (

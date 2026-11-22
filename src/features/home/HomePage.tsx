@@ -5,12 +5,14 @@ import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import './homePage.css';
 import './homeWide.css';
+import './home3A.css';
 
 interface HomePageProps {
   onStart: () => void;
+  onStartInternship: () => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
+export const HomePage: React.FC<HomePageProps> = ({ onStart, onStartInternship }) => {
   return (
     <div
       className="home-page-container view-transition"
@@ -345,7 +347,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
         </div>
       </section>
 
-      </main>
+            <section className="mission-two-teaser" aria-labelledby="mission-two-title">
+        <div><span className="mission-kicker">CASE 02 / AVAILABLE</span><h2 id="mission-two-title">The Dream Internship</h2><p>A longer recruitment-fraud investigation with ten interactions, including two evidence-recall puzzles.</p></div>
+        <button type="button" onClick={onStartInternship}>Play Mission 2</button>
+      </section>
+</main>
 
       
     </div>
