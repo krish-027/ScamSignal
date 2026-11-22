@@ -16,6 +16,7 @@ import { loadSession, persistSession } from '../features/missions/sessionStorage
 import { Button } from '../components/ui/Button';
 import { SkipToContent } from '../components/common/SkipToContent';
 import '../features/qa/accessibility4B.css';
+import '../features/qa/interactionTooltips4C.css';
 
 export const App: React.FC = () => {
   const { currentRoute, announcement, navigateTo } = useNavigation();

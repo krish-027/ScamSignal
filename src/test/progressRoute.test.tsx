@@ -21,6 +21,7 @@ describe('Batch 4A route regression', () => {
     expect(screen.getByRole('button', { name: 'Skip to main content' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /view my progress/i }));
     expect(window.location.hash).toBe('#/progress');
+    expect(document.querySelector('.progress-header')?.firstElementChild?.textContent).toMatch(/home/i);
     expect(screen.getByRole('heading', { name: /instincts have taken you/i })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /browse all missions/i }));
     expect(window.location.hash).toBe('#/missions');

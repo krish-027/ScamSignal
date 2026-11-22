@@ -1,0 +1,41 @@
+/* Tooltip labels for icon-only investigation controls (desktop mouse + keyboard). */
+.phone-tool-dock, .phone-system-nav, .internship-tools, .internship-nav { isolation:isolate; }
+:where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip] {
+  position:relative;overflow:visible;
+}
+:where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]::after {
+  content:attr(data-tooltip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translate(-50%,3px);
+  z-index:40;max-width:180px;width:max-content;box-sizing:border-box;padding:7px 10px;border-radius:8px;
+  background:#e4fcf5;border:1px solid #7adbc1;color:#071723;font:700 12px/1.3 var(--font-body);
+  text-align:center;white-space:normal;box-shadow:0 5px 15px rgba(0,0,0,.35);
+  pointer-events:none;opacity:0;visibility:hidden;transition:opacity .12s ease,transform .12s ease,visibility .12s ease;
+}
+:where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:first-child::after {
+  left:0;transform:translateY(3px);
+}
+:where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:last-child::after {
+  left:auto;right:0;transform:translateY(3px);
+}
+@media (hover:hover) {
+  :where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:hover::after {
+    opacity:1;visibility:visible;transform:translate(-50%,0);
+  }
+  :where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:first-child:hover::after,
+  :where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:last-child:hover::after {
+    transform:translateY(0);
+  }
+}
+:where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:focus-visible::after {
+  opacity:1;visibility:visible;transform:translate(-50%,0);
+}
+:where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:first-child:focus-visible::after,
+:where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:last-child:focus-visible::after {
+  transform:translateY(0);
+}
+:where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:hover,
+:where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]:focus-visible { z-index:50; }
+@media (prefers-reduced-motion:reduce) {
+  :where(.phone-tool-dock,.phone-system-nav,.internship-tools,.internship-nav) button[data-tooltip]::after { transition:none!important; }
+}
+/* Native disabled buttons may still show a hover tooltip; activation stays disabled. */
+.phone-tool-dock > button:disabled, .internship-tools > button:disabled { pointer-events:auto; }

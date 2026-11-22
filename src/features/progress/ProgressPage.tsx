@@ -17,8 +17,8 @@ export function ProgressPage({ onHome, onMissions, onSelectMission }: ProgressPa
   return (
     <div className="progress-page view-transition">
       <header className="progress-header">
-        <BrandMark />
         <button type="button" className="progress-nav" onClick={onHome}><ArrowLeft size={18} aria-hidden="true" /> Home</button>
+        <BrandMark />
       </header>
       <main className="progress-main" id="main-content">
         <div className="progress-hero">

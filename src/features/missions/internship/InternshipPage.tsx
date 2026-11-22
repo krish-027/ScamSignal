@@ -137,14 +137,14 @@ export function InternshipPage({ onExit }: InternshipPageProps) {
           ) : null}
         </div>
         <nav aria-label="Investigation tools" className="internship-tools">
-          <button type="button" aria-label="Evidence archive" title="Evidence" onClick={event => open('evidence', event.currentTarget)}><FileSearch size={22} aria-hidden="true" /></button>
-          <button type="button" aria-label="Investigator hint" title="Hint" disabled={!step} onClick={event => open('hint', event.currentTarget)}><Lightbulb size={22} aria-hidden="true" /></button>
-          <button type="button" aria-label="Case log" title="Case Log" onClick={event => open('history', event.currentTarget)}><History size={22} aria-hidden="true" /></button>
+          <button type="button" aria-label="Evidence archive" data-tooltip="Evidence — inspect the archive" onClick={event => open('evidence', event.currentTarget)}><FileSearch size={22} aria-hidden="true" /></button>
+          <button type="button" aria-label="Investigator hint" data-tooltip="Hint — get a clue" disabled={!step} onClick={event => open('hint', event.currentTarget)}><Lightbulb size={22} aria-hidden="true" /></button>
+          <button type="button" aria-label="Case log" data-tooltip="Case Log — review decisions" onClick={event => open('history', event.currentTarget)}><History size={22} aria-hidden="true" /></button>
         </nav>
         <nav aria-label="Phone navigation" className="internship-nav">
-          <button type="button" aria-label="Phone Back: review the previous locked question" title="Back" onClick={event => goBack(event.currentTarget)}><ArrowLeft size={22} aria-hidden="true" /></button>
-          <button type="button" aria-label="Phone Home: return to homepage" title="Home" onClick={onExit}><Home size={21} aria-hidden="true" /></button>
-          <button type="button" aria-label="Phone Recent: open locked question history" title="Recent" onClick={event => open('history', event.currentTarget)}><History size={21} aria-hidden="true" /></button>
+          <button type="button" aria-label="Phone Back: review the previous locked question" data-tooltip="Back — previous question" onClick={event => goBack(event.currentTarget)}><ArrowLeft size={22} aria-hidden="true" /></button>
+          <button type="button" aria-label="Phone Home: return to homepage" data-tooltip="Home — leave the case" onClick={onExit}><Home size={21} aria-hidden="true" /></button>
+          <button type="button" aria-label="Phone Recent: open locked question history" data-tooltip="Recent — locked questions" onClick={event => open('history', event.currentTarget)}><History size={21} aria-hidden="true" /></button>
         </nav>
       </main>
       {tool && (

@@ -6,7 +6,7 @@ import type { MissionKey } from './MissionCards';
 
 export function MissionSelectPage({ onSelect, onBack, onProgress }: { onSelect: (id: MissionKey) => void; onBack: () => void; onProgress?: () => void }) {
   return <div className="mission-select-screen view-transition">
-    <header className="mission-select-header"><BrandMark /><button type="button" onClick={onBack}><ArrowLeft size={17} aria-hidden="true" /> Back to home</button></header>
+    <header className="mission-select-header"><button type="button" onClick={onBack}><ArrowLeft size={17} aria-hidden="true" /> Back to home</button><BrandMark /></header>
     <main id="main-content" className="mission-select-main">
       <div className="mission-select-intro">
         <span><ShieldCheck size={16} aria-hidden="true" /> CHOOSE YOUR INVESTIGATION</span>

@@ -251,26 +251,26 @@ export function InvestigationPage({ session, onUpdate, onStart, onReplay, onExit
           </div>
 
           <nav className="phone-tool-dock" aria-label="Phone investigation tools">
-            <button type="button" disabled={!scene || availableEvidence.length === 0}
+            <button type="button" data-tooltip="Evidence — inspect collected clues" disabled={!scene || availableEvidence.length === 0}
               onClick={event => openTool('evidence', event.currentTarget)}>
               <span className="phone-tool-icon" aria-hidden="true"><FileSearch size={21} /></span><span className="phone-tool-label">Evidence</span>
             </button>
-            <button type="button" disabled={!scene || !isPlayable}
+            <button type="button" data-tooltip="Hint — get a subtle clue" disabled={!scene || !isPlayable}
               onClick={event => openTool('hint', event.currentTarget)}>
               <span className="phone-tool-icon" aria-hidden="true"><Lightbulb size={21} /></span><span className="phone-tool-label">Hint</span>
             </button>
-            <button type="button" onClick={event => openTool('case-log', event.currentTarget)}>
+            <button type="button" data-tooltip="Case Log — review locked answers" onClick={event => openTool('case-log', event.currentTarget)}>
               <span className="phone-tool-icon" aria-hidden="true"><History size={21} /></span><span className="phone-tool-label">Case Log</span>
             </button>
           </nav>
           <nav className="phone-system-nav" aria-label="Simulated phone navigation">
-            <button type="button" onClick={event => { if (answered > 0) { focusReturnRef.current = event.currentTarget; setShowQuestionHistory(true); } else onExit(); }} aria-label="Phone Back: review previous locked question or return to briefing">
+            <button type="button" onClick={event => { if (answered > 0) { focusReturnRef.current = event.currentTarget; setShowQuestionHistory(true); } else onExit(); }} aria-label="Phone Back: review previous locked question or return to briefing" data-tooltip="Back — previous locked question">
               <ChevronLeft size={21} aria-hidden="true" /><span>Back</span>
             </button>
-            <button type="button" onClick={onHome} aria-label="Phone Home: return to ScamSignal home">
+            <button type="button" onClick={onHome} aria-label="Phone Home: return to ScamSignal home" data-tooltip="Home — ScamSignal homepage">
               <Home size={20} aria-hidden="true" /><span>Home</span>
             </button>
-            <button type="button" onClick={event => openTool('case-log', event.currentTarget)} aria-label="Phone Recent: show locked case history">
+            <button type="button" onClick={event => openTool('case-log', event.currentTarget)} aria-label="Phone Recent: show locked case history" data-tooltip="Recent — case history">
               <Clock3 size={21} aria-hidden="true" /><span>Recent</span>
             </button>
           </nav>

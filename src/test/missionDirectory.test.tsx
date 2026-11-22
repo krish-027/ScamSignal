@@ -6,6 +6,8 @@ it('lists all three available missions in order and opens the chosen one', () =>
   const onSelect = vi.fn();
   const onBack = vi.fn();
   render(<MissionSelectPage onSelect={onSelect} onBack={onBack} />);
+  const header = document.querySelector('.mission-select-header');
+  expect(header?.firstElementChild?.textContent).toMatch(/back to home/i);
   const buttons = screen.getAllByRole('button', { name: /^play the/i });
   expect(buttons).toHaveLength(3);
   expect(buttons.map(button => button.getAttribute('aria-label'))).toEqual([

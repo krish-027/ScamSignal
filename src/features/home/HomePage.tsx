@@ -9,6 +9,7 @@ import './home3A.css';
 import './home3B.css';
 import '../progress/progressEntry.css';
 import { MissionCards } from '../missions/directory/MissionCards';
+import { HomeCasePreview } from './HomeCasePreview';
 import type { MissionKey } from '../missions/directory/MissionCards';
 
 interface HomePageProps {
@@ -134,130 +135,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
           </div>
         </div>
 
-        {/* Right Column: Realistic Notification Preview Card with Restrained Glow */}
-        <div
-          className="hero-preview-column animate-hero-card"
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            width: '100%',
-            position: 'relative',
-          }}
-        >
-          {/* Subtle teal radial glow behind card */}
-          <div
-            style={{
-              position: 'absolute',
-              width: '360px',
-              height: '360px',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              background: 'radial-gradient(circle, rgba(77, 228, 192, 0.12) 0%, transparent 68%)',
-              pointerEvents: 'none',
-              zIndex: 0,
-            }}
-            aria-hidden="true"
-          />
-
-          <div
-            style={{
-              width: '100%',
-              maxWidth: '420px',
-              position: 'relative',
-              zIndex: 1,
-            }}
-          >
-            <div
-              style={{
-                position: 'absolute',
-                top: '-10px',
-                left: '16px',
-                zIndex: 2,
-                backgroundColor: 'rgba(7, 17, 31, 0.95)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 'var(--radius-pill)',
-                padding: '3px 10px',
-                fontSize: '11px',
-                fontFamily: 'var(--font-mono)',
-                color: 'var(--color-accent)',
-                letterSpacing: '0.04em',
-              }}
-            >
-              SIMULATED NOTIFICATION PREVIEW
-            </div>
-
-            <Card
-              variant="surface"
-              padding="standard"
-              className="card-interactive"
-              style={{
-                boxShadow: '0 16px 40px rgba(0, 0, 0, 0.55)',
-                borderTop: '2px solid var(--color-accent)',
-                backgroundColor: 'rgba(14, 27, 44, 0.92)',
-                backdropFilter: 'blur(8px)',
-              }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  marginBottom: 'var(--space-3)',
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div
-                    style={{
-                      width: '8px',
-                      height: '8px',
-                      borderRadius: '50%',
-                      backgroundColor: 'var(--color-danger)',
-                      boxShadow: '0 0 8px var(--color-danger)',
-                    }}
-                  />
-                  <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-primary-text)' }}>
-                    SpeedPost Courier
-                  </span>
-                </div>
-                <span className="text-mono" style={{ fontSize: '11px', color: 'var(--color-muted-text)' }}>
-                  Just Now
-                </span>
-              </div>
-
-              <p
-                style={{
-                  fontSize: '14px',
-                  lineHeight: 1.45,
-                  color: 'var(--color-secondary-text)',
-                  marginBottom: 'var(--space-3)',
-                }}
-              >
-                Delivery Exception: Package #IN-88942 street address is incomplete. Update details immediately to prevent return to sorting facility.
-              </p>
-
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '8px 12px',
-                  backgroundColor: 'var(--color-surface-inset)',
-                  borderRadius: 'var(--radius-sm)',
-                  fontSize: '12px',
-                  fontFamily: 'var(--font-mono)',
-                  color: 'var(--color-muted-text)',
-                  border: '1px solid rgba(41, 64, 87, 0.5)',
-                }}
-              >
-                <span style={{ wordBreak: 'break-all' }}>speedpost-parcel-status.example</span>
-                <span style={{ color: 'var(--color-warning)', fontWeight: 600, flexShrink: 0, marginLeft: '8px' }}>
-                  [Suspect]
-                </span>
-              </div>
-            </Card>
-          </div>
-        </div>
+        {/* Three selectable fictional case previews, grounded in available missions */}
+        <HomeCasePreview onBrowseMissions={onStart} onSelectMission={onSelectMission} />
       </section>
 
       {/* How it works Section */}

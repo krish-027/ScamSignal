@@ -117,14 +117,14 @@ export function RefundPage({ onExit }: RefundPageProps) {
         </> : null}
       </div>
       <nav aria-label="Refund investigation tools" className="internship-tools">
-        <button type="button" aria-label="Refund evidence archive" title="Evidence" onClick={event => open('evidence', event.currentTarget)}><FileSearch size={22} aria-hidden="true" /></button>
-        <button type="button" aria-label="Refund investigator hint" title="Hint" disabled={!step} onClick={event => open('hint', event.currentTarget)}><Lightbulb size={22} aria-hidden="true" /></button>
-        <button type="button" aria-label="Refund case log" title="Case Log" onClick={event => open('history', event.currentTarget)}><History size={22} aria-hidden="true" /></button>
+        <button type="button" aria-label="Refund evidence archive" data-tooltip="Evidence — inspect the archive" onClick={event => open('evidence', event.currentTarget)}><FileSearch size={22} aria-hidden="true" /></button>
+        <button type="button" aria-label="Refund investigator hint" data-tooltip="Hint — get a clue" disabled={!step} onClick={event => open('hint', event.currentTarget)}><Lightbulb size={22} aria-hidden="true" /></button>
+        <button type="button" aria-label="Refund case log" data-tooltip="Case Log — review decisions" onClick={event => open('history', event.currentTarget)}><History size={22} aria-hidden="true" /></button>
       </nav>
       <nav aria-label="Refund phone navigation" className="internship-nav">
-        <button type="button" aria-label="Refund phone Back: review earlier locked question" title="Back" onClick={event => back(event.currentTarget)}><ArrowLeft size={22} aria-hidden="true" /></button>
-        <button type="button" aria-label="Refund phone Home: return to mission selection" title="Home" onClick={onExit}><Home size={21} aria-hidden="true" /></button>
-        <button type="button" aria-label="Refund phone Recent: view case history" title="Recent" onClick={event => open('history', event.currentTarget)}><History size={21} aria-hidden="true" /></button>
+        <button type="button" aria-label="Refund phone Back: review earlier locked question" data-tooltip="Back — previous question" onClick={event => back(event.currentTarget)}><ArrowLeft size={22} aria-hidden="true" /></button>
+        <button type="button" aria-label="Refund phone Home: return to mission selection" data-tooltip="Home — leave the case" onClick={onExit}><Home size={21} aria-hidden="true" /></button>
+        <button type="button" aria-label="Refund phone Recent: view case history" data-tooltip="Recent — locked questions" onClick={event => open('history', event.currentTarget)}><History size={21} aria-hidden="true" /></button>
       </nav>
     </main>
     {tool && <PhonePanel title={tool === 'evidence' ? 'Refund Evidence' : tool === 'hint' ? 'Refund Investigator Hint' : tool === 'history' ? 'Refund Case Log' : tool === 'restart' ? 'Restart Refund Mission?' : 'Confirm refund decision'} onClose={close} returnFocusTo={focusRef.current}>
