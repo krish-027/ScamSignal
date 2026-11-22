@@ -6,11 +6,13 @@ import { MISSION_1_META } from './missionCatalog';
 
 interface MissionBriefingPageProps {
   onBeginPreview: () => void;
+  onBeginInvestigation: () => void;
   onBack: () => void;
 }
 
 export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
   onBeginPreview,
+  onBeginInvestigation,
   onBack,
 }) => {
   const meta = MISSION_1_META;
@@ -212,7 +214,7 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
             lineHeight: 1.45,
           }}
         >
-          <strong>Preview Mode:</strong> Review the incoming scenario and suspected indicators before interactive decision checkpoints begin.
+          <strong>Practice simulation:</strong> Inspect fictional evidence, choose your responses, and see the consequences. No real messages or payments are involved.
         </div>
 
         {/* Action Zone - Anchored Cleanly Near Bottom */}
@@ -227,6 +229,13 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
         >
           <Button
             variant="primary"
+            onClick={onBeginInvestigation}
+            fullWidth
+          >
+            Start Investigation
+          </Button>
+          <Button
+            variant="secondary"
             onClick={onBeginPreview}
             fullWidth
             aria-label="Begin Preview of Mission 1 Scenario"
