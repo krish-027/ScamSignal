@@ -8,13 +8,13 @@ export const MISSION_CATALOG: Record<string, MissionMeta> = {
     subtitle: 'Delivery Phishing Simulation',
     setup: 'A high-priority text message claims an urgent package is on hold due to missing address information.',
     learningObjective: "Verify delivery claims using the service's official app or portal rather than an unsolicited link.",
-    estimatedDuration: '60 seconds',
+    estimatedDuration: '3–5 minutes',
     simulatedSender: {
       displayName: 'SpeedPost Courier',
       address: 'alert@speedpost-verify.example',
       verifiedBadge: false,
     },
-    keyCluesCount: 3,
+    keyCluesCount: 5,
   },
   internship: {
     id: 'internship',

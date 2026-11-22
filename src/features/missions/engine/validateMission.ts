@@ -1,12 +1,11 @@
 import type { CheckpointId, MissionDefinition, Scene } from '../../../types/mission';
 
 const ORDER: readonly CheckpointId[] = [
-  'checkpoint-1',
-  'checkpoint-2',
-  'checkpoint-3',
+  'checkpoint-1', 'checkpoint-2', 'checkpoint-3', 'checkpoint-4', 'checkpoint-5',
 ];
+const ALLOWED_POINTS = [0, 10, 20];
 
-/** Throws with a useful error if a mission contains broken links or unsafe scoring. */
+/** Validates every edge of the complete five-checkpoint mission DAG before play. */
 export function validateMission(definition: MissionDefinition): void {
   if (definition.id !== definition.meta.id) {
     throw new Error(`Mission metadata ID mismatch: ${definition.id}`);
@@ -17,8 +16,8 @@ export function validateMission(definition: MissionDefinition): void {
   if (Object.keys(definition.clues).length !== definition.meta.keyCluesCount) {
     throw new Error('Clue catalog count does not match mission metadata');
   }
-
   const scenes = definition.scenes;
+  const usedChoices = new Set<string>();
   for (const [key, scene] of Object.entries(scenes)) {
     if (scene.id !== key) throw new Error(`Scene key/ID mismatch: ${key}`);
     for (const clueId of scene.clueIds ?? []) {
@@ -31,17 +30,13 @@ export function validateMission(definition: MissionDefinition): void {
         throw new Error(`Decision ${key} needs a checkpoint and choices`);
       }
       if (scene.nextSceneId) throw new Error(`Decision ${key} must branch through choices`);
-      const used = new Set<string>();
       for (const choice of scene.choices) {
-        if (used.has(choice.id)) throw new Error(`Duplicate choice ID: ${choice.id}`);
-        used.add(choice.id);
+        if (usedChoices.has(choice.id)) throw new Error(`Duplicate choice ID: ${choice.id}`);
+        usedChoices.add(choice.id);
         if (choice.checkpointId !== scene.checkpointId) {
           throw new Error(`Choice ${choice.id} has wrong checkpoint`);
         }
-        const allowed = choice.checkpointId === 'checkpoint-3'
-          ? [0, 20, 40]
-          : [0, 15, 30];
-        if (!allowed.includes(choice.points)) {
+        if (!ALLOWED_POINTS.includes(choice.points)) {
           throw new Error(`Choice ${choice.id} has invalid points`);
         }
         if (!scenes[choice.nextSceneId]) {
@@ -67,9 +62,10 @@ export function validateMission(definition: MissionDefinition): void {
     const scene: Scene = scenes[sceneId];
     const nextAncestors = new Set(ancestors);
     nextAncestors.add(sceneId);
-
     if (scene.kind === 'debrief') {
-      if (completed !== 3) throw new Error('Debrief reached before all three checkpoints');
+      if (completed !== ORDER.length) {
+        throw new Error(`Debrief reached before all ${ORDER.length} checkpoints`);
+      }
       return;
     }
     if (scene.kind === 'decision') {
@@ -81,7 +77,6 @@ export function validateMission(definition: MissionDefinition): void {
       }
       return;
     }
-    // Validated in the first pass; non-terminal linear scenes have a nextSceneId.
     walk(scene.nextSceneId!, completed, nextAncestors);
   }
   walk(definition.startSceneId, 0, new Set());

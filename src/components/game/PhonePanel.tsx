@@ -11,11 +11,15 @@ interface PhonePanelProps {
   description?: string;
 }
 
-/** Accessible modal for phone apps and confirmation prompts. */
+/** One modal at a time; Escape and close semantics are owned by the active tool. */
 export function PhonePanel({ title, children, onClose, returnFocusTo, description }: PhonePanelProps) {
   const closeButton = useRef<HTMLButtonElement>(null);
   const contentRef = useRef<HTMLElement>(null);
   const dialogId = useId();
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+  const focusReturnRef = useRef(returnFocusTo);
+  focusReturnRef.current = returnFocusTo;
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -24,12 +28,12 @@ export function PhonePanel({ title, children, onClose, returnFocusTo, descriptio
     const handleKeys = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault();
-        onClose();
+        onCloseRef.current();
         return;
       }
       if (event.key !== 'Tab' || !contentRef.current) return;
       const nodes = Array.from(contentRef.current.querySelectorAll<HTMLElement>(
-        'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        'button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])',
       )).filter(el => el.getClientRects().length > 0 || el === closeButton.current);
       if (!nodes.length) { event.preventDefault(); return; }
       const first = nodes[0];
@@ -44,21 +48,16 @@ export function PhonePanel({ title, children, onClose, returnFocusTo, descriptio
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener('keydown', handleKeys);
-      if (returnFocusTo?.isConnected) returnFocusTo.focus();
+      const target = focusReturnRef.current;
+      if (target?.isConnected) target.focus();
     };
-  }, [onClose, returnFocusTo]);
+  }, []);
 
   return createPortal(
     <div className="phone-panel-backdrop" onMouseDown={event => {
       if (event.currentTarget === event.target) onClose();
     }}>
-      <section
-        ref={contentRef}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={dialogId}
-        className="phone-panel"
-      >
+      <section ref={contentRef} role="dialog" aria-modal="true" aria-labelledby={dialogId} className="phone-panel">
         <div className="phone-panel-titlebar">
           <h2 id={dialogId}>{title}</h2>
           <button ref={closeButton} type="button" className="phone-panel-close" onClick={onClose} aria-label={`Close ${title}`}>
@@ -68,7 +67,6 @@ export function PhonePanel({ title, children, onClose, returnFocusTo, descriptio
         {description && <p className="phone-panel-description">{description}</p>}
         {children}
       </section>
-    </div>,
-    document.body,
+    </div>, document.body,
   );
 }

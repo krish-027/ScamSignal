@@ -7,21 +7,21 @@ interface PhoneStageProps {
   className?: string;
 }
 
+/** Reusable simulated device. Real device system buttons are never impersonated. */
 export const PhoneStage: React.FC<PhoneStageProps> = ({
-  children,
-  showStatusBar = true,
-  className = '',
+  children, showStatusBar = true, className = '',
 }) => {
+  const interactive = className.split(/\s+/).includes('phone-stage--interactive');
   return (
     <div
       className={`phone-stage-wrapper ${className}`}
       style={{
         width: '100%',
-        maxWidth: 'var(--stage-max-width)',
+        maxWidth: interactive ? '440px' : 'var(--stage-max-width)',
         margin: '0 auto',
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100%',
+        minHeight: interactive ? 0 : '100%',
         backgroundColor: 'var(--color-surface-inset)',
         borderLeft: '1px solid var(--color-border)',
         borderRight: '1px solid var(--color-border)',
@@ -30,39 +30,17 @@ export const PhoneStage: React.FC<PhoneStageProps> = ({
       }}
     >
       {showStatusBar && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: '8px 16px',
-            backgroundColor: 'var(--color-surface)',
-            borderBottom: '1px solid var(--color-border)',
-            color: 'var(--color-secondary-text)',
-            fontSize: '12px',
-            fontFamily: 'var(--font-mono)',
-            userSelect: 'none',
-          }}
-          aria-hidden="true"
-        >
+        <div className="phone-status-bar" aria-hidden="true">
           <span>09:41</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {interactive && <span className="phone-hardware-pill" />}
+          <div className="phone-status-icons">
             <Signal size={13} strokeWidth={2.2} />
             <Wifi size={13} strokeWidth={2.2} />
             <Battery size={15} strokeWidth={2.2} />
           </div>
         </div>
       )}
-
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          flex: 1,
-          width: '100%',
-          position: 'relative',
-        }}
-      >
+      <div className="phone-stage-body" style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0, width: '100%', position: 'relative' }}>
         {children}
       </div>
     </div>
