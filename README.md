@@ -7,15 +7,21 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
 [![Vitest](https://img.shields.io/badge/Vitest-2-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![Live on Embarko](https://img.shields.io/badge/Embarko-Live-FA916D)](https://scamsignal-krish-2026.embarko.app)
 
 
 **ScamSignal** turns common online scams into short, consequential investigations. Instead of reading a list of generic warning signs, players work through convincing fictional messages, inspect evidence, choose responses, and see how their decisions affect the outcome. Every mission ends with an opportunity to understand the warning signals and improve the next decision.
 
 The experience runs in a simulated smartphone interface and is designed to be **anonymous-first, educational, and safe to explore**. It does not ask users to transfer money, reveal a UPI PIN, contact actual scammers, or submit real identity documents. The playable cases and scoring rules are defined in the frontend source; progress is saved in the browser.
 
- 
-**Live application:** Deployment to Embarko is planned.  
+
+**Live application:** **[Play ScamSignal on Embarko](https://scamsignal-krish-2026.embarko.app)**  
+**Hosting:** Live on Embarko; claimed under the maintainer's workspace (confirmed November 22, 2026).  
 **Development status:** Three playable cases, cross-case progress tracking, achievements, responsive interface, and automated release validation implemented.
+
+**[Launch the game](https://scamsignal-krish-2026.embarko.app)** · **[Choose a mission](https://scamsignal-krish-2026.embarko.app/#/missions)** · **[View progress](https://scamsignal-krish-2026.embarko.app/#/progress)**
+
+> **No account or payment required to play.** Progress and achievements are stored in the current browser, not synchronized across devices.
 
 
 ---
@@ -356,7 +362,7 @@ The current scope is a self-contained educational simulation, not a service that
 | Static analysis | **TypeScript + ESLint** | Type and lint gates |
 | Browser automation support | **puppeteer-core** | Release smoke tooling in the development dependencies |
 | Persistence | **Web Storage (`localStorage`)** | Saved attempts and progress in the browser |
-| Target hosting | **Embarko (planned)** | Public deployment of the built application |
+| Hosting | **Embarko (live, claimed)** | Hosts the publicly accessible React/Vite application |
 
 There is **no required Gemini, OpenAI, payment-gateway, authentication, or database dependency** for playing the current scenarios. Three.js is not required: the visual identity uses a lighter original SVG/CSS animation system.
 
@@ -367,6 +373,7 @@ There is **no required Gemini, OpenAI, payment-gateway, authentication, or datab
 ```text
 ScamSignal/
 ├── README.md
+├── embarko.json                   # Non-secret Embarko app identifier
 ├── index.html
 ├── package.json
 ├── package-lock.json
@@ -423,7 +430,7 @@ ScamSignal/
         └── investigation.png
 ```
 
-The tree above describes the current source architecture plus the `README.md` and screenshot files supplied with this documentation package; it is not a claim that the additional screenshots are already committed to GitHub.
+The tree describes the source and documentation layout used by this project. Screenshot references in this README expect the corresponding images under `docs/screenshots/`; check that these files are present when publishing the documentation.
 
 ---
 
@@ -497,6 +504,7 @@ The preview server commonly uses `http://localhost:4173/`; check the terminal ou
 ---
 
 
+
 ## Persistence and data handling
 
 ScamSignal keeps game progress in **browser `localStorage`**. The current application does not provide user registration or a cloud account.
@@ -525,7 +533,7 @@ The progress dashboard reads these records rather than saving a separate all-tim
 
 If storage is unavailable, the case may still function in the current tab, but it may not survive a refresh. A damaged or incompatible saved record can be rejected by the loader to avoid using an invalid game state.
 
-**Privacy note:** The game itself is designed around fictional local scenarios. Hosting providers may still process ordinary web-server access logs; this README does not assert that a future hosted deployment collects absolutely no metadata.
+**Privacy note:** The game itself is designed around fictional local scenarios. The hosting provider may process standard web-server access logs; this README does not claim that the hosted website collects absolutely no metadata.
 
 ---
 
@@ -561,7 +569,7 @@ npm run test
 npm run build
 ```
 
-The final visual-identity update added a favicon/header-logo parity regression test. The latest reported local run before that test fix had **87 passing tests and one failing test caused by test-only file URL handling**; the correction was subsequently applied and the user confirmed verification was complete. For the authoritative current test count, run `npm run test` on the checked-out commit.
+The visual-identity update includes a favicon/header-logo parity regression test. A test-only file-path issue was corrected, and the maintainer reported a successful local verification afterward. For the authoritative test count and results for your checkout, run `npm run test` on the current commit.
 
 Covered behaviors include:
 
@@ -600,7 +608,7 @@ It generates a JSON report at a configurable location; by default the output fol
 ../ScamSignal-ReleaseEvidence/scamsignal-batch4d-release-report.json
 ```
 
-The report status **`AUTOMATED CHECKS PASSED — MANUAL QA PENDING`** means automated checks succeeded, *not* that the production site has been deployed or that browser QA is complete.
+The report status **`AUTOMATED CHECKS PASSED — MANUAL QA PENDING`** means automated checks succeeded; it does **not** certify a live host or replace manual browser QA. ScamSignal is now separately hosted on Embarko, and public-site checks remain necessary after every deployment.
 
 ### Visual-system source check
 
@@ -685,17 +693,60 @@ The visual direction combines editorial typography, case-file surfaces, instrume
 5. **Finite case coverage.** The game currently represents three families of scams; fraud tactics vary in practice.
 6. **Educational scoring.** Scores reward chosen responses in these scenarios, not guaranteed safety in the real world.
 7. **Client-controlled state.** Saved scores can be altered by a technically capable user; persistence validation is not an anti-cheat solution.
-8. **Hosting still to be verified.** A successful local build does not guarantee that every asset and route works on a public hosting platform.
+8. **Hosting dependencies.** The public site depends on Embarko uptime and asset delivery. After each update, verify the live URL, static assets, hash routes, and browser storage behavior.
 9. **Accessibility verification is iterative.** Real-device and assistive-technology testing should continue as UI components evolve.
 
 These are intentional or acknowledged boundaries of the current implementation, not features silently promised by the README.
 
 ---
 
+## Deployment
+
+### Live application
+
+**Public URL:** **[https://scamsignal-krish-2026.embarko.app](https://scamsignal-krish-2026.embarko.app)**
+
+ScamSignal is deployed on **[Embarko](https://embarko.ai/)** as `scamsignal-krish-2026`. The maintainer confirmed that the app is **Live** in the owning workspace and that the anonymous-deployment deletion banner no longer appears in a fresh browser session. The application has been claimed; it does not require an anonymous redeployment to remain associated with the workspace.
+
+The GitHub repository may remain private while the hosted website is publicly accessible. A player does not need a GitHub or Embarko account to access the game.
+
+### Deployment identity
+
+The project includes a non-secret `embarko.json` file that identifies the existing hosted app:
+
+```json
+{
+  "appId": "cmws3qvf90u0rnr78kj1xpvd4"
+}
+```
+
+The app ID is a reference to the deployment, **not a deployment credential**. Never put an Embarko deploy key, claim URL, claim code, email verification code, or other secret into `embarko.json` or the Git repository.
+
+### Updating the existing deployment
+
+Future updates should target the existing app name **`scamsignal-krish-2026`**, rather than creating another anonymous app.
+
+1. Make and test changes locally; run `npm run typecheck`, `npm run lint`, `npm run test`, and `npm run build`.
+2. Run `node scripts/release-gate-4d.mjs` and review the generated report.
+3. Commit the reviewed changes and ensure the intended source files are present in the deployment archive.
+4. Follow the current [Embarko quickstart](https://embarko.ai/docs/quickstart.md) for an **authenticated update** using the owning workspace's deployment key. Do not reuse the original anonymous upload request for this claimed app.
+5. Test the real public URL after the update, including case selection, all three missions, progress persistence, mobile layout, and console errors.
+
+The deployment key belongs in the user's private credential store (for example, `~/.embarko/credentials`) or an appropriately protected environment variable such as `DEPLOY_TOKEN`, never in committed source files or deployment logs. On Windows, file ACLs should restrict local credential access.
+
+### Understanding the status endpoint
+
+After the app was claimed, an **unauthenticated** request to `https://ship.embarko.ai/apps/scamsignal-krish-2026/status` returned `not_found` with a message requiring the owning workspace key. This is an access-control response, **not evidence that the live public website was deleted**. Check the signed-in Embarko dashboard or use an authenticated API call according to the current provider documentation.
+
+### Hosted-site data behavior
+
+ScamSignal is a frontend-only React/Vite application. It does not require a dedicated application server, database, user accounts, or payment integration. Scores and game sessions stay in the current browser's `localStorage`; they do not automatically travel between browsers, devices, or private-browsing sessions. Embarko hosting does not change that persistence model.
+
+---
 
 ## Demo walkthrough
 
-A concise demonstration can cover the product in the following order:
+A concise demonstration of the **[live hosted game](https://scamsignal-krish-2026.embarko.app)** can cover the product in the following order:
 
 ```text
 Open ScamSignal
