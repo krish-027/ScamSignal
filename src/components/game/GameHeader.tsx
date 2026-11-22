@@ -96,8 +96,8 @@ export const GameHeader: React.FC<GameHeaderProps> = ({
           style={{
             fontSize: '10px',
             color: 'var(--color-accent)',
-            backgroundColor: 'rgba(77, 228, 192, 0.08)',
-            border: '1px solid rgba(77, 228, 192, 0.25)',
+            backgroundColor: 'rgba(250, 145, 109, 0.08)',
+            border: '1px solid rgba(250, 145, 109, 0.25)',
             padding: '3px 7px',
             borderRadius: 'var(--radius-pill)',
             whiteSpace: 'nowrap',
@@ -112,8 +112,8 @@ export const GameHeader: React.FC<GameHeaderProps> = ({
             style={{
               fontSize: '9px',
               color: 'var(--color-warning)',
-              backgroundColor: 'rgba(255, 203, 107, 0.1)',
-              border: '1px solid rgba(255, 203, 107, 0.3)',
+              backgroundColor: 'rgba(238, 193, 129, 0.1)',
+              border: '1px solid rgba(238, 193, 129, 0.3)',
               padding: '3px 6px',
               borderRadius: 'var(--radius-pill)',
               whiteSpace: 'nowrap',

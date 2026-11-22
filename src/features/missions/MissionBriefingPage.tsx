@@ -60,8 +60,8 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
           style={{
             fontSize: '12px',
             color: 'var(--color-accent)',
-            backgroundColor: 'rgba(77, 228, 192, 0.08)',
-            border: '1px solid rgba(77, 228, 192, 0.25)',
+            backgroundColor: 'rgba(250, 145, 109, 0.08)',
+            border: '1px solid rgba(250, 145, 109, 0.25)',
             padding: '4px 10px',
             borderRadius: 'var(--radius-pill)',
           }}
@@ -129,7 +129,7 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
           >
             <div
               style={{
-                backgroundColor: 'rgba(77, 228, 192, 0.1)',
+                backgroundColor: 'rgba(250, 145, 109, 0.1)',
                 padding: '6px',
                 borderRadius: 'var(--radius-sm)',
                 color: 'var(--color-accent)',

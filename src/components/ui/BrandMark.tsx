@@ -35,20 +35,10 @@ export const BrandMark: React.FC<BrandMarkProps> = ({ showBadge = true, classNam
           aria-label="ScamSignal Shield"
           style={{ flexShrink: 0 }}
         >
-          <rect width="32" height="32" rx="8" fill="var(--color-surface-raised)" stroke="var(--color-border)" strokeWidth="1" />
-          <path 
-            d="M16 6L8 9.5V15.5C8 20.8 11.5 25.5 16 26.8C20.5 25.5 24 20.8 24 15.5V9.5L16 6Z" 
-            stroke="var(--color-accent)" 
-            strokeWidth="2.2" 
-            strokeLinejoin="round" 
-          />
-          <path 
-            d="M12 16L14.8 19L20 13" 
-            stroke="var(--color-accent)" 
-            strokeWidth="2.2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-          />
+          <rect width="32" height="32" rx="6" fill="var(--color-surface-raised)" stroke="var(--color-border)" strokeWidth="1" />
+          <path d="M6 11V7h5 M21 7h4v4 M6 21v4h5 M21 25h4v-4" stroke="var(--color-accent)" strokeWidth="1.8" strokeLinecap="square" />
+          <path d="M6 17h6l3-6 4 11 3-5h4" stroke="var(--color-primary-text)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <circle cx="26" cy="17" r="1.8" fill="var(--color-accent)" />
         </svg>
         <span 
           style={{
@@ -68,9 +58,9 @@ export const BrandMark: React.FC<BrandMarkProps> = ({ showBadge = true, classNam
         <span 
           className="brand-badge text-mono"
           style={{
-            backgroundColor: 'rgba(77, 228, 192, 0.1)',
+            backgroundColor: 'rgba(250, 145, 109, 0.07)',
             color: 'var(--color-accent)',
-            border: '1px solid rgba(77, 228, 192, 0.3)',
+            border: '1px solid rgba(250, 145, 109, 0.25)',
             borderRadius: 'var(--radius-pill)',
             padding: '4px 10px',
             fontSize: '11px',

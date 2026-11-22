@@ -3,6 +3,7 @@ import type { KeyboardEvent } from 'react';
 import { ArrowUpRight, BriefcaseBusiness, PackageSearch, WalletCards } from 'lucide-react';
 import type { MissionKey } from '../missions/directory/MissionCards';
 import './homeCasePreview.css';
+import { SignalField } from './SignalField';
 
 interface HomeCasePreviewProps {
   onSelectMission?: (id: MissionKey) => void;
@@ -53,6 +54,7 @@ export function HomeCasePreview({ onSelectMission, onBrowseMissions }: HomeCaseP
   };
   return (
     <aside className="home-case-preview hero-preview-column animate-hero-card" aria-label="Explore sample scam messages">
+      <SignalField />
       <div className="home-case-preview-shell">
         <div className="home-case-preview-heading">
           <span>CASE FILE PREVIEW</span>
@@ -69,7 +71,7 @@ export function HomeCasePreview({ onSelectMission, onBrowseMissions }: HomeCaseP
             </button>
           ))}
         </div>
-        <section id={`${uid}-panel`} role="tabpanel" aria-labelledby={`${uid}-tab-${selected}`}
+        <section key={current.id} id={`${uid}-panel`} role="tabpanel" aria-labelledby={`${uid}-tab-${selected}`}
           tabIndex={0} className="home-case-preview-card">
           <div className="home-case-preview-meta"><span>CASE {current.number} / {current.category}</span><span>MESSAGE PREVIEW</span></div>
           <div className="home-case-preview-sender">

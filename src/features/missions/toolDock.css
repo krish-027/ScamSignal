@@ -5,7 +5,7 @@
   align-items: center;
   gap: 4px;
   padding: 8px 8px 7px;
-  background: #07111d;
+  background: #101115;
   border-top: 1px solid rgba(220, 239, 255, .28);
 }
 .phone-tool-dock > button {
@@ -39,7 +39,7 @@
   transition: transform 160ms ease, box-shadow 160ms ease;
 }
 .phone-tool-dock > button:nth-child(1) .phone-tool-icon {
-  color: #55ead2;
+  color: #aac6e8;
   background: #13363e;
 }
 .phone-tool-dock > button:nth-child(2) .phone-tool-icon {
@@ -61,7 +61,7 @@
   transform: translateY(-2px);
   box-shadow: 0 0 0 3px rgba(255,255,255,.09), 0 4px 13px rgba(0,0,0,.3);
 }
-.phone-tool-dock > button:focus-visible { outline: 2px solid #a3f9de !important; outline-offset: 1px; }
+.phone-tool-dock > button:focus-visible { outline: 2px solid #ffd0a4 !important; outline-offset: 1px; }
 .phone-tool-dock > button:disabled { opacity: .52; cursor: not-allowed; }
 .phone-tool-dock > button:disabled .phone-tool-icon { filter: saturate(.5); }
 /* The lower Back / Home / Recent navigation retains its distinct rectangular style. */

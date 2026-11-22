@@ -23,11 +23,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(({
       case 'primary':
         return {
           backgroundColor: 'var(--color-accent)',
-          color: 'var(--color-bg)', // Strict requirement: Dark text (#07111F) on mint
+          color: 'var(--color-bg)', // Strict requirement: Dark text (#101115) on mint
           border: 'none',
           minHeight: 'var(--btn-height-primary)',
           fontWeight: 600,
-          boxShadow: '0 2px 10px rgba(77, 228, 192, 0.25)',
+          boxShadow: '0 2px 10px rgba(250, 145, 109, 0.25)',
         };
       case 'secondary':
         return {

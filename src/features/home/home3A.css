@@ -9,9 +9,9 @@
   .home-page-container .hero-preview-column{align-self:center}
 }
 @media(max-width:899px){.home-page-container .hero-section{min-height:0}}
-.mission-two-teaser{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-block:12px 52px;padding:22px 25px;border:1px solid rgba(77,228,192,.42);background:#0e1b2c;border-radius:17px}
+.mission-two-teaser{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-block:12px 52px;padding:22px 25px;border:1px solid rgba(250, 145, 109,.42);background:#1c1d23;border-radius:17px}
 .mission-two-teaser h2{font:700 clamp(20px,2vw,26px)/1.25 var(--font-heading);margin:4px 0}
 .mission-two-teaser p{color:#bacbda;font:400 14px/1.5 var(--font-body);max-width:620px}
-.mission-two-teaser .mission-kicker{color:#4de4c0;font:700 11px var(--font-mono);letter-spacing:.08em}
-.mission-two-teaser button{min-height:49px;border:1px solid #4de4c0;border-radius:10px;padding:12px 20px;background:#4de4c0;color:#07111f;font:700 14px var(--font-body);cursor:pointer}
+.mission-two-teaser .mission-kicker{color:#fa916d;font:700 11px var(--font-mono);letter-spacing:.08em}
+.mission-two-teaser button{min-height:49px;border:1px solid #fa916d;border-radius:10px;padding:12px 20px;background:#fa916d;color:#101115;font:700 14px var(--font-body);cursor:pointer}
 @media(max-width:600px){.mission-two-teaser{padding:17px;gap:15px}.mission-two-teaser button{width:100%}}

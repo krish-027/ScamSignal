@@ -2,16 +2,16 @@
 .home-page-container .hero-section{gap:clamp(28px,4vw,76px)!important}
 .home-page-container .hero-section>div:first-child{max-width:760px}
 .home-page-container .hero-section .text-hero{font-size:clamp(39px,4.5vw,72px);line-height:1.055;letter-spacing:-.04em;max-width:15ch;overflow-wrap:normal}
-.home-page-container .hero-second-line{display:block;color:#4de4c0;font-size:.69em;letter-spacing:-.025em;line-height:1.2;margin-top:12px}
+.home-page-container .hero-second-line{display:block;color:#fa916d;font-size:.69em;letter-spacing:-.025em;line-height:1.2;margin-top:12px}
 .home-page-container .hero-description{font-size:clamp(17px,1.42vw,21px)!important;max-width:690px!important;line-height:1.65!important;text-wrap:pretty}
 .home-page-container .hero-benefits{display:flex;flex-wrap:wrap;gap:9px;list-style:none;padding:0;margin:0;color:#c1d9e7}
-.home-page-container .hero-benefits li{font:600 12px/1.35 var(--font-body);padding:8px 11px;border:1px solid rgba(117,178,188,.35);background:rgba(77,228,192,.045);border-radius:999px}
+.home-page-container .hero-benefits li{font:600 12px/1.35 var(--font-body);padding:8px 11px;border:1px solid rgba(117,178,188,.35);background:rgba(250, 145, 109,.045);border-radius:999px}
 .home-page-container .hero-preview-column>div:last-child{max-width:590px!important}
 .home-page-container .hero-section .animate-hero-3{max-width:410px!important}
 .home-page-container .hero-section .hero-session-copy{font-size:13px;color:#8faebe}
 .home-page-container .mission-catalog-section{padding:38px 0 55px;border-top:1px solid rgba(80,112,143,.5)}
 .home-page-container .mission-catalog-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:22px;flex-wrap:wrap}
-.home-page-container .mission-catalog-heading>div>span{font:700 11px var(--font-mono);letter-spacing:.08em;color:#4de4c0}
+.home-page-container .mission-catalog-heading>div>span{font:700 11px var(--font-mono);letter-spacing:.08em;color:#fa916d}
 .home-page-container .mission-catalog-heading h2{font:700 clamp(25px,3vw,37px)/1.2 var(--font-heading);margin-top:8px}
 .home-page-container .mission-catalog-heading p{font:400 15px/1.5 var(--font-body);color:#b3cad7;max-width:580px;margin-top:7px}
 @media(min-width:900px){.home-page-container .hero-section{min-height:clamp(650px,calc(100dvh - 90px),950px)!important}}

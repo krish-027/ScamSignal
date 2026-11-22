@@ -21,7 +21,7 @@ interface HomePageProps {
 export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, onProgress }) => {
   return (
     <div
-      className="home-page-container view-transition"
+      className="home-page-container view-transition visual-home"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -34,7 +34,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
       }}
     >
       {/* Brand Header */}
-      <header
+      <header className="home-masthead"
         style={{
           padding: 'var(--space-5) 0',
           width: '100%',
@@ -46,7 +46,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
       <main id="main-content">
       {/* Hero Section */}
       <section
-        className="hero-section"
+        className="hero-section visual-hero"
         aria-labelledby="hero-title"
         style={{
           display: 'grid',
@@ -66,7 +66,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
         >
           <div className="animate-hero-1" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
             <span
-              className="text-mono"
+              className="text-mono hero-serial"
               style={{
                 color: 'var(--color-accent)',
                 display: 'inline-flex',
@@ -140,14 +140,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
       </section>
 
       {/* How it works Section */}
-      <section
+      <section className="home-protocol-section"
         aria-labelledby="how-it-works-title"
         style={{
           padding: 'var(--space-8) 0 var(--space-12)',
           borderTop: '1px solid var(--color-border)',
         }}
       >
-        <div style={{ marginBottom: 'var(--space-6)', textAlign: 'center' }}>
+        <div className="home-protocol-heading" style={{ marginBottom: 'var(--space-6)', textAlign: 'center' }}>
           <span className="text-mono" style={{ color: 'var(--color-accent)' }}>
             Investigation Protocol
           </span>
@@ -157,7 +157,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
         </div>
 
         <div
-          className="steps-grid"
+          className="steps-grid visual-steps"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
@@ -170,7 +170,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
                 width: '40px',
                 height: '40px',
                 borderRadius: 'var(--radius-sm)',
-                backgroundColor: 'rgba(77, 228, 192, 0.12)',
+                backgroundColor: 'rgba(250, 145, 109, 0.12)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -194,7 +194,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
                 width: '40px',
                 height: '40px',
                 borderRadius: 'var(--radius-sm)',
-                backgroundColor: 'rgba(255, 203, 107, 0.12)',
+                backgroundColor: 'rgba(238, 193, 129, 0.12)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -218,7 +218,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
                 width: '40px',
                 height: '40px',
                 borderRadius: 'var(--radius-sm)',
-                backgroundColor: 'rgba(100, 224, 172, 0.12)',
+                backgroundColor: 'rgba(166, 211, 180, 0.12)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -238,7 +238,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, on
         </div>
       </section>
 
-      <section className="mission-catalog-section" id="available-missions" aria-labelledby="available-missions-title">
+      <section className="mission-catalog-section visual-catalog" id="available-missions" aria-labelledby="available-missions-title">
         <div className="mission-catalog-heading"><div>
           <span>THREE CASES / YOUR CALL</span>
           <h2 id="available-missions-title">Choose your next investigation</h2>

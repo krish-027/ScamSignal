@@ -39,7 +39,7 @@ body {
   pointer-events: none;
   z-index: 0;
   background: 
-    radial-gradient(circle at 50% 0%, rgba(77, 228, 192, 0.06) 0%, transparent 60%),
+    radial-gradient(circle at 50% 0%, rgba(250, 145, 109, 0.06) 0%, transparent 60%),
     radial-gradient(circle at 85% 30%, rgba(34, 207, 165, 0.03) 0%, transparent 50%),
     radial-gradient(circle at 15% 70%, rgba(20, 39, 59, 0.35) 0%, transparent 70%);
 }
@@ -179,7 +179,7 @@ body {
 
 .btn-primary:not(:disabled):hover {
   background-color: var(--color-accent-hover) !important;
-  box-shadow: 0 4px 14px rgba(77, 228, 192, 0.35) !important;
+  box-shadow: 0 4px 14px rgba(250, 145, 109, 0.35) !important;
 }
 
 .btn-secondary:not(:disabled):hover {
@@ -227,7 +227,7 @@ body {
 }
 
 .card-interactive:hover {
-  border-color: rgba(77, 228, 192, 0.28) !important;
+  border-color: rgba(250, 145, 109, 0.28) !important;
 }
 
 /* Staggered Animations */

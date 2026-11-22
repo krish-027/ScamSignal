@@ -4,7 +4,7 @@
   z-index: 3000;
   inset: 10px auto auto 12px;
   padding: 12px 16px;
-  background: #a3f9de;
+  background: #ffd0a4;
   color: #071421;
   border: 2px solid #071421;
   border-radius: 10px;
@@ -17,10 +17,10 @@
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
-  box-shadow: 0 0 0 3px #a3f9de;
+  box-shadow: 0 0 0 3px #ffd0a4;
 }
 :where(.app-shell) :where(button, a[href], input, textarea, select, summary):focus-visible {
-  outline: 3px solid #a3f9de;
+  outline: 3px solid #ffd0a4;
   outline-offset: 3px;
 }
 :where(.app-shell) :where(button, a[href], input, textarea, select, summary):focus:not(:focus-visible) {
