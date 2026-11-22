@@ -10,6 +10,7 @@ beforeEach(() => {
 function beginFromHome() {
   render(<App />);
   fireEvent.click(screen.getByRole('button', { name: /start investigation/i }));
+  fireEvent.click(screen.getByRole('button', { name: 'Play The Missing Package' }));
   fireEvent.click(screen.getByRole('button', { name: 'Start Investigation' }));
 }
 

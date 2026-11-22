@@ -6,13 +6,16 @@ import { Card } from '../../components/ui/Card';
 import './homePage.css';
 import './homeWide.css';
 import './home3A.css';
+import './home3B.css';
+import { MissionCards } from '../missions/directory/MissionCards';
+import type { MissionKey } from '../missions/directory/MissionCards';
 
 interface HomePageProps {
   onStart: () => void;
-  onStartInternship: () => void;
+  onSelectMission?: (id: MissionKey) => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ onStart, onStartInternship }) => {
+export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission }) => {
   return (
     <div
       className="home-page-container view-transition"
@@ -72,21 +75,27 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onStartInternship }
               <ShieldCheck size={14} /> Cyber Defense Simulation
             </span>
             <h1 id="hero-title" className="text-hero" tabIndex={-1}>
-              The internet is testing you.
+              The internet is testing you.<span className="hero-second-line">Can you spot the scam?</span>
             </h1>
           </div>
 
           <p
-            className="text-body animate-hero-2"
+            className="text-body animate-hero-2 hero-description"
             style={{
               fontSize: '18px',
               maxWidth: '520px',
               color: 'var(--color-secondary-text)',
             }}
           >
-            Can you spot the threat before it&apos;s too late? Investigate realistic phone scams,
-            uncover subtle red flags, and master cyber defense through consequential decisions.
+            Step into realistic delivery, recruitment, and refund scenarios. Examine suspicious messages, connect clues across conversations, and make choices that change how each investigation unfolds.
           </p>
+
+
+          <ul className="hero-benefits" aria-label="Investigation features">
+            <li>Follow the evidence</li>
+            <li>Decode the deception</li>
+            <li>Make your own call</li>
+          </ul>
 
           <div
             className="animate-hero-3"
@@ -102,7 +111,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onStartInternship }
               onClick={onStart}
               icon={<ArrowRight size={20} />}
               style={{ width: '100%' }}
-              aria-label="Start Investigation and view Mission 1 Briefing"
+              aria-label="Start Investigation and choose a mission"
             >
               Start Investigation
             </Button>
@@ -117,7 +126,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onStartInternship }
                 gap: '6px',
               }}
             >
-              <AlertOctagon size={13} color="var(--color-accent)" /> 3-5 min session · No sign-up required
+              <AlertOctagon size={13} color="var(--color-accent)" /> Three interactive cases · No sign-up required
             </span>
           </div>
         </div>
@@ -347,9 +356,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onStartInternship }
         </div>
       </section>
 
-            <section className="mission-two-teaser" aria-labelledby="mission-two-title">
-        <div><span className="mission-kicker">CASE 02 / AVAILABLE</span><h2 id="mission-two-title">The Dream Internship</h2><p>A longer recruitment-fraud investigation with ten interactions, including two evidence-recall puzzles.</p></div>
-        <button type="button" onClick={onStartInternship}>Play Mission 2</button>
+      <section className="mission-catalog-section" id="available-missions" aria-labelledby="available-missions-title">
+        <div className="mission-catalog-heading"><div>
+          <span>THREE CASES / YOUR CALL</span>
+          <h2 id="available-missions-title">Choose your next investigation</h2>
+          <p>Start with a suspicious delivery, follow a questionable job offer, or unravel a refund request designed to trick you.</p>
+        </div></div>
+        <MissionCards onSelect={onSelectMission ?? (() => onStart())} />
       </section>
 </main>
 

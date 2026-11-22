@@ -24,6 +24,9 @@ describe('ScamSignal routing and accessibility', () => {
     render(<App />);
     expect(screen.getByRole('heading', { level: 1, name: /the internet is testing you/i })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /start investigation/i }));
+    expect(window.location.hash).toBe('#/missions');
+    expect(screen.getByRole('heading', { level: 1, name: /pick a case/i })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Play The Missing Package' }));
     expect(window.location.hash).toBe('#/briefing');
     expect(screen.getByRole('heading', { level: 1, name: /the missing package/i })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /begin preview/i }));

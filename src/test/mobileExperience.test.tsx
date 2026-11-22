@@ -13,6 +13,7 @@ beforeEach(() => {
 function begin() {
   render(<App />);
   fireEvent.click(screen.getByRole('button', { name: /start investigation/i }));
+  fireEvent.click(screen.getByRole('button', { name: 'Play The Missing Package' }));
   fireEvent.click(screen.getByRole('button', { name: 'Start Investigation' }));
   fireEvent.click(screen.getByRole('button', { name: /continue to first decision/i }));
 }
@@ -58,6 +59,7 @@ describe('Batch 2B.2 mobile phone controls', () => {
   it('restores a locked choice across Home and reload without shrinking the phone', async () => {
     const view = render(<App />);
     fireEvent.click(screen.getByRole('button', { name: /start investigation/i }));
+    fireEvent.click(screen.getByRole('button', { name: 'Play The Missing Package' }));
     fireEvent.click(screen.getByRole('button', { name: 'Start Investigation' }));
     fireEvent.click(screen.getByRole('button', { name: /continue to first decision/i }));
     const phone = document.querySelector('.phone-stage--interactive');

@@ -3,6 +3,9 @@ import { useNavigation } from './navigation';
 import { GlobalErrorBoundary } from '../components/common/GlobalErrorBoundary';
 import { HomePage } from '../features/home/HomePage';
 import { InternshipPage } from '../features/missions/internship/InternshipPage';
+import { MissionSelectPage } from '../features/missions/directory/MissionSelectPage';
+import type { MissionKey } from '../features/missions/directory/MissionCards';
+import { RefundPage } from '../features/missions/refund/RefundPage';
 import { MissionBriefingPage } from '../features/missions/MissionBriefingPage';
 import { SimulationPreviewPage } from '../features/missions/SimulationPreviewPage';
 import { InvestigationPage } from '../features/missions/InvestigationPage';
@@ -14,6 +17,7 @@ import { Button } from '../components/ui/Button';
 export const App: React.FC = () => {
   const { currentRoute, announcement, navigateTo } = useNavigation();
   const [session, setSession] = useState(loadSession);
+  const openMission = (id: MissionKey) => navigateTo(id === 'parcel' ? 'briefing' : id === 'internship' ? 'internship' : 'refund');
 
   useEffect(() => {
     persistSession(session);
@@ -31,7 +35,7 @@ export const App: React.FC = () => {
   const renderCurrentView = () => {
     switch (currentRoute) {
       case 'home':
-        return <HomePage onStart={() => navigateTo('briefing')} onStartInternship={() => navigateTo('internship')} />;
+        return <HomePage onStart={() => navigateTo('missions')} onSelectMission={openMission} />;
 
       case 'briefing':
         return (
@@ -62,6 +66,12 @@ export const App: React.FC = () => {
             onHome={() => navigateTo('home')}
           />
         );
+
+      case 'missions':
+        return <MissionSelectPage onSelect={openMission} onBack={() => navigateTo('home')} />;
+
+      case 'refund':
+        return <RefundPage onExit={() => navigateTo('missions')} />;
 
       case 'internship':
         return <InternshipPage onExit={() => navigateTo('home')} />;
