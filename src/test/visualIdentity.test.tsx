@@ -1,4 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { HomePage } from '../features/home/HomePage';
 import { MissionSelectPage } from '../features/missions/directory/MissionSelectPage';
@@ -42,5 +44,28 @@ describe('SIGNAL / NOISE visual overhaul regression', () => {
     expect(screen.getByRole('img', { name: 'ScamSignal Shield' })).toBeInTheDocument();
     expect(screen.getByText(/ScamSignal/i)).toBeInTheDocument();
     expect(screen.getByText(/Interactive Simulation/i)).toBeInTheDocument();
+  });
+
+  it('uses the same signal mark in the browser tab and the application header', () => {
+    const html = readFileSync(resolve(process.cwd(), 'index.html'), 'utf8');
+    const icon = readFileSync(resolve(process.cwd(), 'public/scamsignal-mark-4e.svg'), 'utf8');
+    const legacyIcon = readFileSync(resolve(process.cwd(), 'public/favicon.svg'), 'utf8');
+
+    expect(html).toContain('href="/scamsignal-mark-4e.svg"');
+    expect(legacyIcon).toBe(icon);
+
+    const { container } = render(<BrandMark showBadge={false} />);
+    const headerSvg = container.querySelector('svg');
+    const faviconSvg = new DOMParser().parseFromString(icon, 'image/svg+xml').querySelector('svg');
+
+    expect(headerSvg).not.toBeNull();
+    expect(faviconSvg).not.toBeNull();
+    expect(faviconSvg?.getAttribute('viewBox')).toBe(headerSvg?.getAttribute('viewBox'));
+    expect([...faviconSvg!.querySelectorAll('path')].map(path => path.getAttribute('d')))
+      .toEqual([...headerSvg!.querySelectorAll('path')].map(path => path.getAttribute('d')));
+    expect(faviconSvg?.querySelector('circle')?.getAttribute('cx'))
+      .toBe(headerSvg?.querySelector('circle')?.getAttribute('cx'));
+    expect(faviconSvg?.querySelector('circle')?.getAttribute('cy'))
+      .toBe(headerSvg?.querySelector('circle')?.getAttribute('cy'));
   });
 });

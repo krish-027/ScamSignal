@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 32 32" fill="none" role="img" aria-label="ScamSignal signal mark">
+  <!-- The same geometric paths and proportions as src/components/ui/BrandMark.tsx. -->
+  <rect width="32" height="32" rx="6" fill="#27282e" stroke="#45434a" stroke-width="1"/>
+  <path d="M6 11V7h5 M21 7h4v4 M6 21v4h5 M21 25h4v-4" stroke="#fa916d" stroke-width="1.8" stroke-linecap="square"/>
+  <path d="M6 17h6l3-6 4 11 3-5h4" stroke="#f6f0e7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="26" cy="17" r="1.8" fill="#fa916d"/>
+</svg>
