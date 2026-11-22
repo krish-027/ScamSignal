@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-export type AppRoute = 'home' | 'briefing' | 'preview' | 'investigate' | 'not-found' | 'internship' | 'missions' | 'refund';
+export type AppRoute = 'home' | 'briefing' | 'preview' | 'investigate' | 'not-found' | 'internship' | 'missions' | 'refund' | 'progress';
 
 const ROUTE_HASHES: Record<AppRoute, string> = {
   home: '#/',
@@ -10,6 +10,7 @@ const ROUTE_HASHES: Record<AppRoute, string> = {
   internship: '#/internship',
   missions: '#/missions',
   refund: '#/refund',
+  progress: '#/progress',
   'not-found': '#/not-found',
 };
 
@@ -22,6 +23,7 @@ export function getRouteFromHash(rawHash: string): AppRoute {
   if (normalized === 'internship') return 'internship';
   if (normalized === 'missions') return 'missions';
   if (normalized === 'refund') return 'refund';
+  if (normalized === 'progress') return 'progress';
   return 'not-found';
 }
 
@@ -34,6 +36,7 @@ function describeRoute(route: AppRoute): string {
     case 'internship': return 'Mission 2: The Dream Internship.';
     case 'missions': return 'ScamSignal Mission Selection.';
     case 'refund': return 'Mission 3: The Refund Trap.';
+    case 'progress': return 'ScamSignal Progress and Achievements.';
     case 'not-found': return 'Requested page not found.';
   }
 }

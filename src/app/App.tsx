@@ -4,6 +4,7 @@ import { GlobalErrorBoundary } from '../components/common/GlobalErrorBoundary';
 import { HomePage } from '../features/home/HomePage';
 import { InternshipPage } from '../features/missions/internship/InternshipPage';
 import { MissionSelectPage } from '../features/missions/directory/MissionSelectPage';
+import { ProgressPage } from '../features/progress/ProgressPage';
 import type { MissionKey } from '../features/missions/directory/MissionCards';
 import { RefundPage } from '../features/missions/refund/RefundPage';
 import { MissionBriefingPage } from '../features/missions/MissionBriefingPage';
@@ -35,7 +36,7 @@ export const App: React.FC = () => {
   const renderCurrentView = () => {
     switch (currentRoute) {
       case 'home':
-        return <HomePage onStart={() => navigateTo('missions')} onSelectMission={openMission} />;
+        return <HomePage onStart={() => navigateTo('missions')} onSelectMission={openMission} onProgress={() => navigateTo('progress')} />;
 
       case 'briefing':
         return (
@@ -68,7 +69,10 @@ export const App: React.FC = () => {
         );
 
       case 'missions':
-        return <MissionSelectPage onSelect={openMission} onBack={() => navigateTo('home')} />;
+        return <MissionSelectPage onSelect={openMission} onBack={() => navigateTo('home')} onProgress={() => navigateTo('progress')} />;
+
+      case 'progress':
+        return <ProgressPage onHome={() => navigateTo('home')} onMissions={() => navigateTo('missions')} onSelectMission={id => id === 'parcel' && session.missionRecords.parcel.status !== 'not_started' ? navigateTo('investigate') : openMission(id)} />;
 
       case 'refund':
         return <RefundPage onExit={() => navigateTo('missions')} />;

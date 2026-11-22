@@ -7,15 +7,17 @@ import './homePage.css';
 import './homeWide.css';
 import './home3A.css';
 import './home3B.css';
+import '../progress/progressEntry.css';
 import { MissionCards } from '../missions/directory/MissionCards';
 import type { MissionKey } from '../missions/directory/MissionCards';
 
 interface HomePageProps {
   onStart: () => void;
   onSelectMission?: (id: MissionKey) => void;
+  onProgress?: () => void;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission }) => {
+export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission, onProgress }) => {
   return (
     <div
       className="home-page-container view-transition"
@@ -115,6 +117,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart, onSelectMission }) 
             >
               Start Investigation
             </Button>
+            {onProgress && <button type="button" className="hero-progress-link" onClick={onProgress}>View My Progress</button>}
             <span
               className="text-supporting"
               style={{

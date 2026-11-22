@@ -16,3 +16,12 @@ it('lists all three available missions in order and opens the chosen one', () =>
   fireEvent.click(screen.getByRole('button', { name: /back to home/i }));
   expect(onBack).toHaveBeenCalledOnce();
 });
+
+it('opens progress from mission selection without changing selected mission', () => {
+  const onSelect = vi.fn();
+  const onProgress = vi.fn();
+  render(<MissionSelectPage onSelect={onSelect} onBack={vi.fn()} onProgress={onProgress} />);
+  fireEvent.click(screen.getByRole('button', { name: /view progress and achievements/i }));
+  expect(onProgress).toHaveBeenCalledOnce();
+  expect(onSelect).not.toHaveBeenCalled();
+});
