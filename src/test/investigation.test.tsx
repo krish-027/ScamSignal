@@ -4,6 +4,7 @@ import { App } from '../app/App';
 
 beforeEach(() => {
   window.history.replaceState(null, '', '#/');
+  window.localStorage.clear();
 });
 
 describe('Mission 1 interactive investigation', () => {
@@ -17,8 +18,9 @@ describe('Mission 1 interactive investigation', () => {
     beginFromHome();
     expect(window.location.hash).toBe('#/investigate');
     expect(screen.getByText('Incoming delivery alert')).toBeInTheDocument();
-    const trigger = screen.getByRole('button', { name: /inspect sender identity/i });
+    const trigger = screen.getByRole('button', { name: /^evidence$/i });
     fireEvent.click(trigger);
+    fireEvent.click(screen.getByRole('button', { name: /sender identity/i }));
     const dialog = screen.getByRole('dialog', { name: /sender identity/i });
     expect(dialog).toHaveTextContent(/display name does not establish authenticity/i);
     fireEvent.click(screen.getByRole('button', { name: /close evidence panel/i }));
@@ -31,10 +33,13 @@ describe('Mission 1 interactive investigation', () => {
     beginFromHome();
     fireEvent.click(screen.getByRole('button', { name: /continue to first decision/i }));
     fireEvent.click(screen.getByRole('button', { name: /check the sender details/i }));
+    fireEvent.click(screen.getByRole('button', { name: /confirm and lock decision/i }));
     fireEvent.click(screen.getByRole('button', { name: /continue investigation/i }));
     fireEvent.click(screen.getByRole('button', { name: /use the courier’s official app/i }));
+    fireEvent.click(screen.getByRole('button', { name: /confirm and lock decision/i }));
     fireEvent.click(screen.getByRole('button', { name: /continue investigation/i }));
     fireEvent.click(screen.getByRole('button', { name: /decline and verify the parcel independently/i }));
+    fireEvent.click(screen.getByRole('button', { name: /confirm and lock decision/i }));
     fireEvent.click(screen.getByRole('button', { name: /continue investigation/i }));
     fireEvent.click(screen.getByRole('button', { name: /view mission result/i }));
     expect(
@@ -45,6 +50,7 @@ describe('Mission 1 interactive investigation', () => {
 ).toBeInTheDocument();
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '3');
     fireEvent.click(screen.getByRole('button', { name: /replay mission/i }));
+    fireEvent.click(screen.getByRole('button', { name: /confirm restart mission/i }));
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0');
     expect(screen.getByText('Incoming delivery alert')).toBeInTheDocument();
   });
