@@ -135,6 +135,7 @@ export type CheckpointDecision =
 export interface MissionRecord {
   missionId: MissionId;
   status: 'not_started' | 'in_progress' | 'completed';
+  currentSceneId?: string; // Unset before starting or after reset
   decisions: {
     'checkpoint-1'?: Checkpoint1Decision;
     'checkpoint-2'?: Checkpoint2Decision;
@@ -152,4 +153,13 @@ export interface GameSessionState {
   activeMissionId: MissionId;
   missionRecords: Record<MissionId, MissionRecord>;
   overallScore: number | null; // Math.round average of completed missions only
+}
+
+/** Data-driven definition consumed by the Batch 2 mission engine. */
+export interface MissionDefinition {
+  id: MissionId;
+  meta: MissionMeta;
+  startSceneId: string;
+  clues: Record<string, Clue>;
+  scenes: Record<string, Scene>;
 }
