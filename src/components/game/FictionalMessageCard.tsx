@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, Info, Search } from 'lucide-react';
+import { AlertTriangle, Search } from 'lucide-react';
 import { Card } from '../ui/Card';
 
 interface FictionalMessageCardProps {
@@ -27,25 +27,6 @@ export const FictionalMessageCard: React.FC<FictionalMessageCardProps> = ({
         width: '100%',
       }}
     >
-      {/* Simulation Banner */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--space-2)',
-          padding: '8px 12px',
-          backgroundColor: 'rgba(255, 203, 107, 0.08)',
-          border: '1px solid rgba(255, 203, 107, 0.25)',
-          borderRadius: 'var(--radius-sm)',
-          color: 'var(--color-warning)',
-          fontSize: '12px',
-          lineHeight: 1.4,
-        }}
-      >
-        <Info size={16} style={{ flexShrink: 0 }} />
-        <span>Educational Simulation: Inspect message indicators carefully.</span>
-      </div>
-
       {/* Believable Phone SMS Message Bubble */}
       <Card
         variant="surface"

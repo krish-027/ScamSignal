@@ -203,19 +203,7 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
         </div>
 
         {/* Natural Player-Facing Preview Banner */}
-        <div
-          style={{
-            padding: '10px 12px',
-            backgroundColor: 'rgba(255, 203, 107, 0.08)',
-            border: '1px solid rgba(255, 203, 107, 0.3)',
-            borderRadius: 'var(--radius-md)',
-            color: 'var(--color-warning)',
-            fontSize: '12px',
-            lineHeight: 1.45,
-          }}
-        >
-          <strong>Practice simulation:</strong> Inspect fictional evidence, choose your responses, and see the consequences. No real messages or payments are involved.
-        </div>
+        
 
         {/* Action Zone - Anchored Cleanly Near Bottom */}
         <div

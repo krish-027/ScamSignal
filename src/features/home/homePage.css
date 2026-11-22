@@ -1,0 +1,13 @@
+/* Only the public homepage expands normally. Never touch the simulated phone shell. */
+.home-page-container {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100dvh;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding-inline: max(var(--space-5), calc((100vw - var(--desktop-max-width)) / 2)) !important;
+}
+@media (max-width: 359px) {
+  .home-page-container { padding-inline: var(--space-4) !important; }
+}

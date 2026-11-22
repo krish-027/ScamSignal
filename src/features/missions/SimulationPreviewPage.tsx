@@ -78,9 +78,7 @@ export const SimulationPreviewPage: React.FC<SimulationPreviewPageProps> = ({
                     You are viewing the incoming scenario and investigative context.
                     Decision checkpoints and evidence review will be available once the full scenario launches.
                   </p>
-                  <p className="text-supporting" style={{ fontSize: '12px' }}>
-                    Fictional simulation — never enter real credentials, delivery addresses, or financial details.
-                  </p>
+                  
                 </div>
               </div>
             </Card>

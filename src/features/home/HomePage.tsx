@@ -3,6 +3,7 @@ import { ArrowRight, ShieldCheck, Eye, Search, AlertOctagon } from 'lucide-react
 import { BrandMark } from '../../components/ui/BrandMark';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
+import './homePage.css';
 
 interface HomePageProps {
   onStart: () => void;
@@ -345,18 +346,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
 
       </main>
 
-      {/* Educational Disclaimer Footer */}
-      <footer
-        style={{
-          padding: 'var(--space-6) 0 var(--space-8)',
-          borderTop: '1px solid var(--color-border)',
-          textAlign: 'center',
-        }}
-      >
-        <p className="text-supporting" style={{ fontSize: '13px' }}>
-          Educational simulation. No real payments, logins, or messages. Never enter real passwords or PINs.
-        </p>
-      </footer>
+      
     </div>
   );
 };

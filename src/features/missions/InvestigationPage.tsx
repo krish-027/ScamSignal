@@ -2,11 +2,14 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import {
   AlertTriangle, CheckCircle2, ChevronLeft, Clock3, FileSearch,
-  History, Home, Lightbulb, LockKeyhole, Shield,
+  History, Home, Lightbulb, LockKeyhole,
 } from 'lucide-react';
 import { PhoneStage } from '../../components/game/PhoneStage';
 import { PhonePanel } from '../../components/game/PhonePanel';
 import { Button } from '../../components/ui/Button';
+import { displayChoices } from './choiceOrder';
+import { DecisionImpact, SignalReveal } from './CinematicReveal';
+import './cinematic.css';
 import { advance, choose, getCurrentScene, inspectClue } from './engine/missionEngine';
 import { PARCEL_MISSION } from './data/parcelMission';
 import type { CheckpointId, Clue, GameSessionState, Scene } from '../../types/mission';
@@ -149,7 +152,6 @@ export function InvestigationPage({ session, onUpdate, onStart, onReplay, onExit
 
           <div className="investigation-scroll" aria-label="Mission content">
             <div className="investigation-content">
-              <p className="investigation-disclaimer"><Shield size={15} aria-hidden="true" /> Fictional educational simulation. Never enter real personal or payment details.</p>
               <div className="investigation-progress" role="progressbar" aria-label="Completed decisions"
                 aria-valuemin={0} aria-valuemax={CHECKPOINTS.length} aria-valuenow={answered}>
                 {CHECKPOINTS.map((checkpoint, position) => (
@@ -193,6 +195,12 @@ export function InvestigationPage({ session, onUpdate, onStart, onReplay, onExit
                     <h2 className="text-heading">{scene.title ?? (scene.kind === 'consequence' ? 'What happened next?' : 'Case update')}</h2>
                     <p className="text-body">{scene.body}</p>
                     {scene.kind === 'consequence' && scene.outcome && (
+                      <DecisionImpact outcome={scene.outcome} />
+                    )}
+                    {scene.kind === 'reveal' && (
+                      <SignalReveal inspectedClueIds={record.inspectedClueIds} />
+                    )}
+                    {scene.kind === 'consequence' && scene.outcome && (
                       <span className={`investigation-outcome investigation-outcome--${scene.outcome}`}>
                         {scene.outcome === 'safe' ? <CheckCircle2 size={16} aria-hidden="true" /> : <AlertTriangle size={16} aria-hidden="true" />}
                         {scene.outcome === 'safe' ? 'Safer response' : scene.outcome === 'caution' ? 'Partly cautious response' : 'Risky response'}
@@ -211,7 +219,7 @@ export function InvestigationPage({ session, onUpdate, onStart, onReplay, onExit
                       <>
                         <h2>Choose your response</h2>
                         <p className="investigation-locked-note"><LockKeyhole size={14} aria-hidden="true" /> A confirmed decision is final for this attempt.</p>
-                        {scene.choices?.map((choice, index) => (
+                        {displayChoices(scene, record.startedAt).map((choice, index) => (
                           <button type="button" key={choice.id} className="investigation-choice"
                             onClick={event => requestChoice(choice.id, event.currentTarget)}>
                             <span className="investigation-choice-index" aria-hidden="true">{String.fromCharCode(65 + index)}</span>

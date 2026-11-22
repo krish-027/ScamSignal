@@ -72,7 +72,7 @@ describe('Shared UI Components', () => {
     expect(handleBack).toHaveBeenCalledTimes(1);
   });
 
-  it('renders FictionalMessageCard with safety disclaimers and inert link', () => {
+  it('renders FictionalMessageCard without disclaimer and keeps link inert', () => {
     render(
       <FictionalMessageCard
         senderName="SpeedPost Courier"
@@ -82,7 +82,8 @@ describe('Shared UI Components', () => {
       />
     );
 
-    expect(screen.getByText(/Educational Simulation/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Educational Simulation/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
     expect(screen.getByText('SpeedPost Courier')).toBeInTheDocument();
     expect(screen.getByText(/alert@speedpost-verify\.example/i)).toBeInTheDocument();
     expect(screen.getByText(/Simulated Link \(Inert\)/i)).toBeInTheDocument();
