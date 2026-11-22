@@ -18,6 +18,7 @@ describe('Batch 4A route regression', () => {
   });
   it('opens the dashboard from Home and returns to mission selection', () => {
     render(<App />);
+    expect(screen.getByRole('button', { name: 'Skip to main content' })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /view my progress/i }));
     expect(window.location.hash).toBe('#/progress');
     expect(screen.getByRole('heading', { name: /instincts have taken you/i })).toBeInTheDocument();

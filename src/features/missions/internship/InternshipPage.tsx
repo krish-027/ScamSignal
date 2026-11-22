@@ -127,8 +127,8 @@ export function InternshipPage({ onExit }: InternshipPageProps) {
                 ) : (
                   <form className="internship-puzzle" onSubmit={submitPuzzle}>
                     <label htmlFor="recruitment-answer">Answer from earlier evidence</label>
-                    <input id="recruitment-answer" maxLength={24} autoComplete="off" spellCheck={false} value={typed} onChange={event => {setTyped(event.target.value);setPuzzleError('');}} placeholder={step.placeholder} required />
-                    {puzzleError && <p role="alert" className="internship-error">{puzzleError}</p>}
+                    <input id="recruitment-answer" aria-invalid={Boolean(puzzleError)} aria-describedby={puzzleError ? 'internship-puzzle-error' : undefined} maxLength={24} autoComplete="off" spellCheck={false} value={typed} onChange={event => {setTyped(event.target.value);setPuzzleError('');}} placeholder={step.placeholder} required />
+                    {puzzleError && <p role="alert" id="internship-puzzle-error" className="internship-error">{puzzleError}</p>}
                     <button type="submit" className="internship-primary">Check evidence <ArrowRight size={17} aria-hidden="true" /></button>
                   </form>
                 )}

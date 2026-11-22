@@ -14,6 +14,8 @@ import { restartMission, startMission } from '../features/missions/engine/missio
 import { PARCEL_MISSION } from '../features/missions/data/parcelMission';
 import { loadSession, persistSession } from '../features/missions/sessionStorage';
 import { Button } from '../components/ui/Button';
+import { SkipToContent } from '../components/common/SkipToContent';
+import '../features/qa/accessibility4B.css';
 
 export const App: React.FC = () => {
   const { currentRoute, announcement, navigateTo } = useNavigation();
@@ -112,6 +114,7 @@ export const App: React.FC = () => {
 
   return (
     <GlobalErrorBoundary>
+      <SkipToContent />
       <div className="bg-atmosphere" aria-hidden="true" />
       <div className="sr-only" role="status" aria-live="polite" aria-atomic="true">
         {announcement}

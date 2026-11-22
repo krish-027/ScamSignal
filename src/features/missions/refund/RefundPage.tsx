@@ -108,9 +108,9 @@ export function RefundPage({ onExit }: RefundPageProps) {
               </button>)}
             </div> : <form className="internship-puzzle" onSubmit={submit}>
               <label htmlFor="refund-evidence-answer">Answer from earlier evidence</label>
-              <input id="refund-evidence-answer" maxLength={24} autoComplete="off" spellCheck={false} value={answer} required placeholder={step.placeholder}
+              <input id="refund-evidence-answer" aria-invalid={Boolean(error)} aria-describedby={error ? 'refund-evidence-error' : undefined} maxLength={24} autoComplete="off" spellCheck={false} value={answer} required placeholder={step.placeholder}
                 onChange={event => { setAnswer(event.target.value); setError(''); }}/>
-              {error && <p role="alert" className="internship-error">{error}</p>}
+              {error && <p role="alert" id="refund-evidence-error" className="internship-error">{error}</p>}
               <button type="submit" className="internship-primary">Check evidence <ArrowRight size={17} aria-hidden="true" /></button>
             </form>}
           </section>

@@ -1,0 +1,79 @@
+/* Batch 4B: narrowly scoped inclusive interaction polish. No phone-size redesign. */
+.scamsignal-skip-link {
+  position: fixed;
+  z-index: 3000;
+  inset: 10px auto auto 12px;
+  padding: 12px 16px;
+  background: #a3f9de;
+  color: #071421;
+  border: 2px solid #071421;
+  border-radius: 10px;
+  font: 700 14px/1.2 var(--font-body, system-ui);
+  transform: translateY(-180%);
+  opacity: 0;
+  pointer-events: none;
+}
+.scamsignal-skip-link:focus-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  box-shadow: 0 0 0 3px #a3f9de;
+}
+:where(.app-shell) :where(button, a[href], input, textarea, select, summary):focus-visible {
+  outline: 3px solid #a3f9de;
+  outline-offset: 3px;
+}
+:where(.app-shell) :where(button, a[href], input, textarea, select, summary):focus:not(:focus-visible) {
+  outline-offset: 0;
+}
+:where(.app-shell) :where(input, textarea, select) {
+  max-width: 100%;
+  min-height: 44px;
+}
+.internship-puzzle input[aria-invalid="true"] {
+  border-color: #ff9ca5;
+  box-shadow: 0 0 0 1px #ff9ca5;
+}
+.internship-puzzle .internship-error { color: #ffb4bf !important; }
+.internship-card, .internship-message, .progress-mission,
+.progress-achievement, .mission-select-main, .progress-main {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Short windows and large browser zoom: preserve the fixed app chrome and
+   let the question area scroll; never set a minimum phone height. */
+@media (max-height: 540px) and (min-width: 481px) {
+  .investigation-root, .internship-screen, .refund-screen {
+    padding-block: 0;
+    min-height: 0;
+  }
+  .phone-stage--interactive, .internship-device, .refund-device {
+    height: 100dvh;
+    min-height: 0;
+    border-radius: 13px;
+  }
+  .internship-status, .phone-status-bar { flex-basis: 28px; }
+  .internship-header { padding-block: 7px; }
+  .internship-tools { padding-block: 3px; }
+  .internship-tools button { width: 44px; height: 44px; min-height: 44px; }
+  .internship-nav { padding-block: 3px; }
+  .internship-nav button { height: 44px; }
+  .phone-tool-dock { padding-block: 4px; }
+  .phone-tool-dock > button { min-height: 48px !important; }
+  .phone-system-nav { padding-block: 3px; }
+  .phone-system-nav button { min-height: 44px !important; }
+}
+@media (max-width: 480px) {
+  .phone-stage--interactive, .internship-device, .refund-device {
+    min-height: 0;
+  }
+  .internship-scroll, .investigation-scroll { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scamsignal-skip-link, .internship-progress-track span,
+  .progress-bar span, .phone-tool-icon { transition: none !important; }
+  .signal-reveal-item, .decision-impact, .signal-reveal-orb,
+  .signal-reveal-scanbar span { animation: none !important; }
+  :where(.app-shell) { scroll-behavior: auto !important; }
+}
