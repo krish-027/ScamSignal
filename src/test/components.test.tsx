@@ -82,10 +82,10 @@ describe('Shared UI Components', () => {
       />
     );
 
-    expect(screen.getByText(/Educational Preview/i)).toBeInTheDocument();
+    expect(screen.getByText(/Educational Simulation/i)).toBeInTheDocument();
     expect(screen.getByText('SpeedPost Courier')).toBeInTheDocument();
     expect(screen.getByText(/alert@speedpost-verify\.example/i)).toBeInTheDocument();
-    expect(screen.getByText(/Simulated Suspicious Link \(Inert\)/i)).toBeInTheDocument();
+    expect(screen.getByText(/Simulated Link \(Inert\)/i)).toBeInTheDocument();
     expect(screen.getByText(/speedpost-parcel-status\.example/i)).toBeInTheDocument();
   });
 });

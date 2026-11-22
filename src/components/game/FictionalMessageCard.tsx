@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertTriangle, ShieldAlert, ExternalLink, Info } from 'lucide-react';
+import { AlertTriangle, Info, Search } from 'lucide-react';
 import { Card } from '../ui/Card';
 
 interface FictionalMessageCardProps {
@@ -14,7 +14,7 @@ export const FictionalMessageCard: React.FC<FictionalMessageCardProps> = ({
   senderName = 'SpeedPost Courier',
   senderAddress = 'alert@speedpost-verify.example',
   timestamp = 'Today, 09:38 AM',
-  messageText = 'URGENT NOTICE: Package #IN-88942 delivery failed due to missing building/street address. Update delivery address immediately to avoid return to depot within 2 hours.',
+  messageText = 'URGENT: Package #IN-88942 cannot be delivered due to an incomplete street address. Update details immediately to avoid return to depot within 2 hours.',
   suspiciousUrl = 'https://speedpost-parcel-status.example/verify',
 }) => {
   return (
@@ -22,12 +22,12 @@ export const FictionalMessageCard: React.FC<FictionalMessageCardProps> = ({
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: 'var(--space-4)',
-        padding: 'var(--space-4)',
+        gap: 'var(--space-3)',
+        padding: 'var(--space-3) var(--space-4)',
         width: '100%',
       }}
     >
-      {/* Simulation banner */}
+      {/* Simulation Banner */}
       <div
         style={{
           display: 'flex',
@@ -39,105 +39,129 @@ export const FictionalMessageCard: React.FC<FictionalMessageCardProps> = ({
           borderRadius: 'var(--radius-sm)',
           color: 'var(--color-warning)',
           fontSize: '12px',
+          lineHeight: 1.4,
         }}
       >
         <Info size={16} style={{ flexShrink: 0 }} />
-        <span>Educational Preview: Simulated SMS phishing scenario.</span>
+        <span>Educational Simulation: Inspect message indicators carefully.</span>
       </div>
 
-      {/* Simulated SMS card */}
+      {/* Believable Phone SMS Message Bubble */}
       <Card
         variant="surface"
         padding="standard"
         style={{
-          maxWidth: '92%',
-          alignSelf: 'flex-start',
+          maxWidth: '100%',
           borderLeft: '3px solid var(--color-warning)',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
         }}
       >
-        {/* Sender details */}
+        {/* Sender Header with Avatar */}
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
-            gap: '2px',
+            alignItems: 'center',
+            gap: '10px',
             marginBottom: 'var(--space-3)',
             paddingBottom: 'var(--space-3)',
             borderBottom: '1px solid var(--color-border)',
           }}
         >
+          {/* Fictional sender avatar icon */}
           <div
             style={{
+              width: '36px',
+              height: '36px',
+              borderRadius: '50%',
+              backgroundColor: 'var(--color-surface-raised)',
+              border: '1px solid var(--color-border)',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'space-between',
+              justifyContent: 'center',
+              fontWeight: 700,
+              fontSize: '13px',
+              color: 'var(--color-accent)',
+              flexShrink: 0,
             }}
           >
+            SP
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '14px',
+                  fontWeight: 600,
+                  color: 'var(--color-primary-text)',
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {senderName}
+              </span>
+              <span className="text-mono" style={{ color: 'var(--color-muted-text)', fontSize: '10px', flexShrink: 0 }}>
+                {timestamp}
+              </span>
+            </div>
             <span
               style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: '14px',
-                fontWeight: 600,
-                color: 'var(--color-primary-text)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '11px',
+                color: 'var(--color-muted-text)',
+                wordBreak: 'break-all',
+                overflowWrap: 'anywhere',
               }}
             >
-              {senderName}
-            </span>
-            <span className="text-mono" style={{ color: 'var(--color-muted-text)', fontSize: '11px' }}>
-              {timestamp}
+              From: {senderAddress}
             </span>
           </div>
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '12px',
-              color: 'var(--color-muted-text)',
-              wordBreak: 'break-all',
-            }}
-          >
-            From: {senderAddress}
-          </span>
         </div>
 
-        {/* Message body */}
+        {/* Message Body */}
         <p
           className="text-body"
           style={{
             color: 'var(--color-primary-text)',
             marginBottom: 'var(--space-3)',
             lineHeight: 1.5,
+            fontSize: '14px',
           }}
         >
           {messageText}
         </p>
 
-        {/* Inert suspicious link block */}
+        {/* Inert Suspicious Link Block */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '6px',
+            gap: '4px',
             padding: '10px 12px',
             backgroundColor: 'var(--color-surface-raised)',
             borderRadius: 'var(--radius-sm)',
-            border: '1px dashed rgba(255, 107, 122, 0.5)',
+            border: '1px dashed rgba(255, 107, 122, 0.45)',
             marginBottom: 'var(--space-3)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <AlertTriangle size={14} color="var(--color-danger)" />
-            <span className="text-mono" style={{ color: 'var(--color-danger)', fontSize: '11px' }}>
-              Simulated Suspicious Link (Inert)
+            <AlertTriangle size={13} color="var(--color-danger)" />
+            <span className="text-mono" style={{ color: 'var(--color-danger)', fontSize: '10px' }}>
+              Simulated Link (Inert)
             </span>
           </div>
           <span
             style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '13px',
+              fontSize: '12px',
               color: 'var(--color-secondary-text)',
               wordBreak: 'break-all',
+              overflowWrap: 'anywhere',
               textDecoration: 'underline',
               cursor: 'not-allowed',
+              userSelect: 'text',
             }}
             title="Inert link: non-clickable for safety"
           >
@@ -145,13 +169,13 @@ export const FictionalMessageCard: React.FC<FictionalMessageCardProps> = ({
           </span>
         </div>
 
-        {/* Preview investigation signals */}
+        {/* Investigative Clue Indicators (Answers NOT spoiled) */}
         <div
           style={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: 'var(--space-2)',
-            paddingTop: 'var(--space-2)',
+            gap: '6px',
+            paddingTop: 'var(--space-1)',
           }}
         >
           <span
@@ -161,14 +185,14 @@ export const FictionalMessageCard: React.FC<FictionalMessageCardProps> = ({
               gap: '4px',
               padding: '3px 8px',
               borderRadius: 'var(--radius-pill)',
-              backgroundColor: 'rgba(255, 203, 107, 0.1)',
-              border: '1px solid rgba(255, 203, 107, 0.3)',
-              color: 'var(--color-warning)',
+              backgroundColor: 'rgba(77, 228, 192, 0.08)',
+              border: '1px solid rgba(77, 228, 192, 0.25)',
+              color: 'var(--color-accent)',
               fontSize: '11px',
               fontWeight: 500,
             }}
           >
-            <ShieldAlert size={12} /> Clue Spot: Sender domain mismatch
+            <Search size={11} /> Investigate: Sender Metadata
           </span>
           <span
             style={{
@@ -177,14 +201,30 @@ export const FictionalMessageCard: React.FC<FictionalMessageCardProps> = ({
               gap: '4px',
               padding: '3px 8px',
               borderRadius: 'var(--radius-pill)',
-              backgroundColor: 'rgba(255, 107, 122, 0.1)',
-              border: '1px solid rgba(255, 107, 122, 0.3)',
+              backgroundColor: 'rgba(255, 203, 107, 0.08)',
+              border: '1px solid rgba(255, 203, 107, 0.25)',
+              color: 'var(--color-warning)',
+              fontSize: '11px',
+              fontWeight: 500,
+            }}
+          >
+            <Search size={11} /> Investigate: Urgency Claim
+          </span>
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              padding: '3px 8px',
+              borderRadius: 'var(--radius-pill)',
+              backgroundColor: 'rgba(255, 107, 122, 0.08)',
+              border: '1px solid rgba(255, 107, 122, 0.25)',
               color: 'var(--color-danger)',
               fontSize: '11px',
               fontWeight: 500,
             }}
           >
-            <ExternalLink size={12} /> Clue Spot: Manufactured urgency
+            <Search size={11} /> Investigate: Web Address
           </span>
         </div>
       </Card>

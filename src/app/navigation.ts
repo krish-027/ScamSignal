@@ -1,57 +1,66 @@
 import { useState, useEffect, useCallback } from 'react';
 
-export type AppRoute = 'home' | 'briefing' | 'preview';
+export type AppRoute = 'home' | 'briefing' | 'preview' | 'not-found';
 
-function getRouteFromLocation(): AppRoute {
-  const hash = window.location.hash.toLowerCase().replace('#', '').trim();
-  if (hash === 'briefing') return 'briefing';
-  if (hash === 'preview') return 'preview';
+const ROUTE_HASHES: Record<AppRoute, string> = {
+  home: '#/',
+  briefing: '#/briefing',
+  preview: '#/preview',
+  'not-found': '#/not-found',
+};
 
-  // Also check pathname for clean url compatibility
-  const path = window.location.pathname.toLowerCase();
-  if (path.includes('/briefing')) return 'briefing';
-  if (path.includes('/preview')) return 'preview';
+export function getRouteFromHash(rawHash: string): AppRoute {
+  const normalized = rawHash.replace(/^#\/?/, '').trim().toLowerCase();
+  if (normalized === '' || normalized === 'home') return 'home';
+  if (normalized === 'briefing') return 'briefing';
+  if (normalized === 'preview') return 'preview';
+  return 'not-found';
+}
 
-  return 'home';
+function describeRoute(route: AppRoute): string {
+  switch (route) {
+    case 'home':
+      return 'ScamSignal Home: The internet is testing you.';
+    case 'briefing':
+      return 'Mission 1 Briefing: The Missing Package.';
+    case 'preview':
+      return 'Mission 1 Simulation Preview.';
+    case 'not-found':
+      return 'Requested page not found.';
+  }
 }
 
 export function useNavigation() {
-  const [currentRoute, setCurrentRoute] = useState<AppRoute>(getRouteFromLocation);
+  const [currentRoute, setCurrentRoute] = useState<AppRoute>(() =>
+    getRouteFromHash(window.location.hash)
+  );
+  const [announcement, setAnnouncement] = useState('');
 
+  // Only hashchange drives browser Back/Forward synchronization.
   useEffect(() => {
-    const handleLocationChange = () => {
-      setCurrentRoute(getRouteFromLocation());
+    const syncRoute = () => {
+      setCurrentRoute(getRouteFromHash(window.location.hash));
     };
-
-    window.addEventListener('popstate', handleLocationChange);
-    window.addEventListener('hashchange', handleLocationChange);
-
-    return () => {
-      window.removeEventListener('popstate', handleLocationChange);
-      window.removeEventListener('hashchange', handleLocationChange);
-    };
+    window.addEventListener('hashchange', syncRoute);
+    return () => window.removeEventListener('hashchange', syncRoute);
   }, []);
+
+  // Runs after React commits the destination view; no timer is needed.
+  useEffect(() => {
+    setAnnouncement(`Navigated to ${describeRoute(currentRoute)}`);
+    window.scrollTo(0, 0);
+    document.querySelector<HTMLElement>('h1')?.focus();
+  }, [currentRoute]);
 
   const navigateTo = useCallback((route: AppRoute) => {
-    const hash = route === 'home' ? '' : `#${route}`;
-    if (window.location.hash !== hash) {
-      window.history.pushState(null, '', hash || window.location.pathname);
-    }
+    // State update is immediate for button interactions and component tests.
+    // The hashchange event later keeps browser-history navigation in sync.
     setCurrentRoute(route);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    const nextHash = ROUTE_HASHES[route];
+    if (window.location.hash !== nextHash) {
+      window.location.hash = nextHash;
+    }
   }, []);
 
-  const goBack = useCallback(() => {
-    if (window.history.length > 1) {
-      window.history.back();
-    } else {
-      navigateTo('home');
-    }
-  }, [navigateTo]);
-
-  return {
-    currentRoute,
-    navigateTo,
-    goBack,
-  };
+  return { currentRoute, announcement, navigateTo };
 }

@@ -1,6 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { MISSION_CATALOG, MISSION_1_META } from '../features/missions/missionCatalog';
-import { DecisionPoints, CheckpointId } from '../types/mission';
+import {
+  Checkpoint1or2Points,
+  Checkpoint3Points,
+  Checkpoint1Decision,
+  Checkpoint2Decision,
+  Checkpoint3Decision,
+  MissionRecord,
+} from '../types/mission';
 
 describe('Mission Catalog and Scoring Architecture Contracts', () => {
   it('contains valid metadata for all three defined missions', () => {
@@ -14,33 +21,59 @@ describe('Mission Catalog and Scoring Architecture Contracts', () => {
     expect(MISSION_1_META.estimatedDuration).toBe('60 seconds');
   });
 
-  it('verifies that checkpoint scoring structures conform to the 30 + 30 + 40 constraint', () => {
-    // Checkpoint 1: 0 | 15 | 30
-    const cp1Full: DecisionPoints = 30;
-    const cp1Half: DecisionPoints = 15;
-    const cp1Zero: DecisionPoints = 0;
+  it('strictly validates checkpoint discriminated points (30 + 30 + 40 constraint)', () => {
+    // Checkpoints 1 and 2: only 0, 15, or 30
+    const cp1Points: Checkpoint1or2Points = 30;
+    const cp2Points: Checkpoint1or2Points = 15;
+    // Checkpoint 3: only 0, 20, or 40
+    const cp3Points: Checkpoint3Points = 40;
 
-    // Checkpoint 2: 0 | 15 | 30
-    const cp2Full: DecisionPoints = 30;
-    const cp2Half: DecisionPoints = 15;
-    const cp2Zero: DecisionPoints = 0;
+    const total = cp1Points + cp2Points + cp3Points;
+    expect(total).toBe(85);
 
-    // Checkpoint 3: 0 | 20 | 40
-    const cp3Full: DecisionPoints = 40;
-    const cp3Half: DecisionPoints = 20;
-    const cp3Zero: DecisionPoints = 0;
+    const cp1Dec: Checkpoint1Decision = {
+      checkpointId: 'checkpoint-1',
+      choiceId: 'choice-1a',
+      pointsEarned: 30,
+      timestamp: Date.now(),
+    };
+    const cp2Dec: Checkpoint2Decision = {
+      checkpointId: 'checkpoint-2',
+      choiceId: 'choice-2b',
+      pointsEarned: 15,
+      timestamp: Date.now(),
+    };
+    const cp3Dec: Checkpoint3Decision = {
+      checkpointId: 'checkpoint-3',
+      choiceId: 'choice-3a',
+      pointsEarned: 40,
+      timestamp: Date.now(),
+    };
 
-    const maxScore = cp1Full + cp2Full + cp3Full;
-    expect(maxScore).toBe(100);
+    expect(cp1Dec.checkpointId).toBe('checkpoint-1');
+    expect(cp2Dec.checkpointId).toBe('checkpoint-2');
+    expect(cp3Dec.checkpointId).toBe('checkpoint-3');
+  });
 
-    const halfScore = cp1Half + cp2Half + cp3Half;
-    expect(halfScore).toBe(50);
+  it('allows incomplete decision maps for in-progress missions', () => {
+    const inProgressRecord: MissionRecord = {
+      missionId: 'parcel',
+      status: 'in_progress',
+      decisions: {
+        'checkpoint-1': {
+          checkpointId: 'checkpoint-1',
+          choiceId: 'choice-1a',
+          pointsEarned: 30,
+          timestamp: 1000,
+        },
+        // checkpoint-2 and checkpoint-3 are not yet made
+      },
+      score: 30,
+      inspectedClueIds: ['sender-clue'],
+    };
 
-    const minScore = cp1Zero + cp2Zero + cp3Zero;
-    expect(minScore).toBe(0);
-
-    // Verify checkpoint IDs
-    const checkpoints: CheckpointId[] = ['checkpoint-1', 'checkpoint-2', 'checkpoint-3'];
-    expect(checkpoints).toHaveLength(3);
+    expect(inProgressRecord.decisions['checkpoint-1']?.pointsEarned).toBe(30);
+    expect(inProgressRecord.decisions['checkpoint-2']).toBeUndefined();
+    expect(inProgressRecord.status).toBe('in_progress');
   });
 });

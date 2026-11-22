@@ -11,7 +11,7 @@ interface HomePageProps {
 export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
   return (
     <div
-      className="home-page-container"
+      className="home-page-container view-transition"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -33,6 +33,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
         <BrandMark />
       </header>
 
+      <main id="main-content">
       {/* Hero Section */}
       <section
         className="hero-section"
@@ -53,7 +54,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
             gap: 'var(--space-5)',
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+          <div className="animate-hero-1" style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
             <span
               className="text-mono"
               style={{
@@ -66,13 +67,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
             >
               <ShieldCheck size={14} /> Cyber Defense Simulation
             </span>
-            <h1 id="hero-title" className="text-hero">
+            <h1 id="hero-title" className="text-hero" tabIndex={-1}>
               The internet is testing you.
             </h1>
           </div>
 
           <p
-            className="text-body"
+            className="text-body animate-hero-2"
             style={{
               fontSize: '18px',
               maxWidth: '520px',
@@ -84,6 +85,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
           </p>
 
           <div
+            className="animate-hero-3"
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -116,20 +118,38 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
           </div>
         </div>
 
-        {/* Right Column: Realistic Notification Preview Card */}
+        {/* Right Column: Realistic Notification Preview Card with Restrained Glow */}
         <div
-          className="hero-preview-column"
+          className="hero-preview-column animate-hero-card"
           style={{
             display: 'flex',
             justifyContent: 'center',
             width: '100%',
+            position: 'relative',
           }}
         >
+          {/* Subtle teal radial glow behind card */}
+          <div
+            style={{
+              position: 'absolute',
+              width: '360px',
+              height: '360px',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              background: 'radial-gradient(circle, rgba(77, 228, 192, 0.12) 0%, transparent 68%)',
+              pointerEvents: 'none',
+              zIndex: 0,
+            }}
+            aria-hidden="true"
+          />
+
           <div
             style={{
               width: '100%',
               maxWidth: '420px',
               position: 'relative',
+              zIndex: 1,
             }}
           >
             <div
@@ -138,13 +158,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
                 top: '-10px',
                 left: '16px',
                 zIndex: 2,
-                backgroundColor: 'rgba(7, 17, 31, 0.9)',
+                backgroundColor: 'rgba(7, 17, 31, 0.95)',
                 border: '1px solid var(--color-border)',
                 borderRadius: 'var(--radius-pill)',
-                padding: '2px 10px',
+                padding: '3px 10px',
                 fontSize: '11px',
                 fontFamily: 'var(--font-mono)',
-                color: 'var(--color-muted-text)',
+                color: 'var(--color-accent)',
+                letterSpacing: '0.04em',
               }}
             >
               SIMULATED NOTIFICATION PREVIEW
@@ -153,10 +174,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
             <Card
               variant="surface"
               padding="standard"
+              className="card-interactive"
               style={{
-                border: '1px solid var(--color-border)',
-                boxShadow: '0 12px 36px rgba(0, 0, 0, 0.5)',
+                boxShadow: '0 16px 40px rgba(0, 0, 0, 0.55)',
                 borderTop: '2px solid var(--color-accent)',
+                backgroundColor: 'rgba(14, 27, 44, 0.92)',
+                backdropFilter: 'blur(8px)',
               }}
             >
               <div
@@ -178,7 +201,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
                     }}
                   />
                   <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--color-primary-text)' }}>
-                    SpeedPost Express
+                    SpeedPost Courier
                   </span>
                 </div>
                 <span className="text-mono" style={{ fontSize: '11px', color: 'var(--color-muted-text)' }}>
@@ -194,7 +217,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
                   marginBottom: 'var(--space-3)',
                 }}
               >
-                Delivery Exception: Package #IN-88942 address is unconfirmed. Click to update within 2 hours or shipment will be forfeited.
+                Delivery Exception: Package #IN-88942 street address is incomplete. Update details immediately to prevent return to sorting facility.
               </p>
 
               <div
@@ -208,10 +231,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
                   fontSize: '12px',
                   fontFamily: 'var(--font-mono)',
                   color: 'var(--color-muted-text)',
+                  border: '1px solid rgba(41, 64, 87, 0.5)',
                 }}
               >
-                <span>speedpost-parcel-status.example</span>
-                <span style={{ color: 'var(--color-warning)', fontWeight: 600 }}>[Red Flag]</span>
+                <span style={{ wordBreak: 'break-all' }}>speedpost-parcel-status.example</span>
+                <span style={{ color: 'var(--color-warning)', fontWeight: 600, flexShrink: 0, marginLeft: '8px' }}>
+                  [Suspect]
+                </span>
               </div>
             </Card>
           </div>
@@ -243,7 +269,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
             gap: 'var(--space-5)',
           }}
         >
-          <Card variant="surface" padding="standard">
+          <Card variant="surface" padding="standard" className="card-interactive">
             <div
               style={{
                 width: '40px',
@@ -267,7 +293,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
             </p>
           </Card>
 
-          <Card variant="surface" padding="standard">
+          <Card variant="surface" padding="standard" className="card-interactive">
             <div
               style={{
                 width: '40px',
@@ -291,7 +317,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
             </p>
           </Card>
 
-          <Card variant="surface" padding="standard">
+          <Card variant="surface" padding="standard" className="card-interactive">
             <div
               style={{
                 width: '40px',
@@ -316,6 +342,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onStart }) => {
           </Card>
         </div>
       </section>
+
+      </main>
 
       {/* Educational Disclaimer Footer */}
       <footer

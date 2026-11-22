@@ -1,8 +1,12 @@
 /**
  * ScamSignal - Mission and Game State Type Definitions
- * Contracts only for future gameplay engine integration.
- * Safeguard 3: Structure future mission decision storage by mission ID and checkpoint ID,
- * preserving idempotent scoring, replay/reset behavior, and independent mission histories.
+ * Batch 1 Type Contracts (No playable logic implemented in Batch 1).
+ * 
+ * Enforces checkpoint-specific scoring rules via discriminated unions:
+ * - Checkpoint 1: 0 | 15 | 30 points
+ * - Checkpoint 2: 0 | 15 | 30 points
+ * - Checkpoint 3: 0 | 20 | 40 points
+ * Total potential score per mission: 100 points
  */
 
 export type MissionId = 'parcel' | 'internship' | 'refund';
@@ -28,25 +32,46 @@ export interface Clue {
   emphasis: ClueEmphasis;
 }
 
-/**
- * Checkpoint scoring structure:
- * Checkpoint 1: 0 | 15 | 30
- * Checkpoint 2: 0 | 15 | 30
- * Checkpoint 3: 0 | 20 | 40
- * Total possible per mission: 100 points
- */
-export type DecisionPoints = 0 | 15 | 20 | 30 | 40;
+/** Checkpoint-specific allowed point values */
+export type Checkpoint1or2Points = 0 | 15 | 30;
+export type Checkpoint3Points = 0 | 20 | 40;
+export type DecisionPoints = Checkpoint1or2Points | Checkpoint3Points;
 
-export interface Choice {
+/** Discriminated choice types ensuring checkpoint-specific points */
+export interface Checkpoint1Choice {
   id: string;
-  checkpointId: CheckpointId;
+  checkpointId: 'checkpoint-1';
   label: string;
   nextSceneId: string;
-  points: DecisionPoints;
+  points: Checkpoint1or2Points;
   consequenceText: string;
   safetyRationale: string;
   outcomeType: Outcome;
 }
+
+export interface Checkpoint2Choice {
+  id: string;
+  checkpointId: 'checkpoint-2';
+  label: string;
+  nextSceneId: string;
+  points: Checkpoint1or2Points;
+  consequenceText: string;
+  safetyRationale: string;
+  outcomeType: Outcome;
+}
+
+export interface Checkpoint3Choice {
+  id: string;
+  checkpointId: 'checkpoint-3';
+  label: string;
+  nextSceneId: string;
+  points: Checkpoint3Points;
+  consequenceText: string;
+  safetyRationale: string;
+  outcomeType: Outcome;
+}
+
+export type Choice = Checkpoint1Choice | Checkpoint2Choice | Checkpoint3Choice;
 
 export interface Scene {
   id: string;
@@ -76,32 +101,52 @@ export interface MissionMeta {
   keyCluesCount: number;
 }
 
-/**
- * Idempotent decision record stored by checkpoint ID
- */
-export interface CheckpointDecision {
-  checkpointId: CheckpointId;
+/** Discriminated decision records stored by checkpoint ID */
+export interface Checkpoint1Decision {
+  checkpointId: 'checkpoint-1';
   choiceId: string;
-  pointsEarned: DecisionPoints;
+  pointsEarned: Checkpoint1or2Points;
   timestamp: number;
 }
 
+export interface Checkpoint2Decision {
+  checkpointId: 'checkpoint-2';
+  choiceId: string;
+  pointsEarned: Checkpoint1or2Points;
+  timestamp: number;
+}
+
+export interface Checkpoint3Decision {
+  checkpointId: 'checkpoint-3';
+  choiceId: string;
+  pointsEarned: Checkpoint3Points;
+  timestamp: number;
+}
+
+export type CheckpointDecision =
+  | Checkpoint1Decision
+  | Checkpoint2Decision
+  | Checkpoint3Decision;
+
 /**
- * Independent mission state to support replay/reset without affecting other missions
+ * Independent mission state to support replay/reset without affecting other missions.
+ * Optional checkpoint keys also enforce checkpoint-specific point types.
  */
 export interface MissionRecord {
   missionId: MissionId;
   status: 'not_started' | 'in_progress' | 'completed';
-  decisions: Record<CheckpointId, CheckpointDecision>;
-  score: number; // 0-100 derived from decisions sum
+  decisions: {
+    'checkpoint-1'?: Checkpoint1Decision;
+    'checkpoint-2'?: Checkpoint2Decision;
+    'checkpoint-3'?: Checkpoint3Decision;
+  };
+  score: number; // 0-100 derived sum of decisions
   inspectedClueIds: string[];
   startedAt?: number;
   completedAt?: number;
 }
 
-/**
- * Complete game session state contract
- */
+/** Complete game session state contract */
 export interface GameSessionState {
   schemaVersion: 1;
   activeMissionId: MissionId;

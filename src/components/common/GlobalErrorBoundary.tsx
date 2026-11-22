@@ -23,12 +23,14 @@ export class GlobalErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ScamSignal Uncaught Error:', error, errorInfo);
+    if (import.meta.env.DEV) {
+      console.error('ScamSignal Diagnostic Error:', error, errorInfo);
+    }
   }
 
   private handleReset = () => {
     this.setState({ hasError: false, error: undefined });
-    window.location.hash = '';
+    window.location.hash = '#/';
     window.location.reload();
   };
 
@@ -37,6 +39,8 @@ export class GlobalErrorBoundary extends Component<Props, State> {
       if (this.props.fallback) {
         return this.props.fallback;
       }
+
+      const isDev = import.meta.env.DEV;
 
       return (
         <div
@@ -66,15 +70,16 @@ export class GlobalErrorBoundary extends Component<Props, State> {
             <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-3)' }}>
               <AlertOctagon size={28} color="var(--color-danger)" />
               <h1 style={{ fontSize: '20px', fontFamily: 'var(--font-heading)' }}>
-                System Interruption
+                System Notice
               </h1>
             </div>
 
             <p className="text-body" style={{ fontSize: '15px' }}>
-              ScamSignal encountered an unexpected view error. You can safely reset to the main screen.
+              An unexpected issue occurred while rendering this view. You can safely return to the home screen.
             </p>
 
-            {this.state.error && (
+            {/* Diagnostic trace only visible in development mode */}
+            {isDev && this.state.error && (
               <pre
                 style={{
                   padding: '10px',
@@ -84,6 +89,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
                   fontFamily: 'var(--font-mono)',
                   color: 'var(--color-secondary-text)',
                   overflowX: 'auto',
+                  border: '1px solid rgba(255, 107, 122, 0.3)',
                 }}
               >
                 {this.state.error.message}
@@ -95,7 +101,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
               onClick={this.handleReset}
               icon={<RotateCcw size={18} />}
             >
-              Reset to Home
+              Return to Home
             </Button>
           </Card>
         </div>

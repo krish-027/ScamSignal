@@ -17,7 +17,7 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
 
   return (
     <div
-      className="briefing-container"
+      className="briefing-container view-transition"
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -32,7 +32,7 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
         zIndex: 1,
       }}
     >
-      {/* Top Header */}
+      {/* Top Header with Accessible, Explicit Back Button */}
       <header
         style={{
           display: 'flex',
@@ -41,26 +41,16 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
           padding: 'var(--space-3) var(--space-4)',
           borderBottom: '1px solid var(--color-border)',
           backgroundColor: 'var(--color-surface)',
+          minHeight: '60px',
         }}
       >
         <button
           onClick={onBack}
-          aria-label="Back to home"
-          className="btn-ghost"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 'var(--min-tap-target)',
-            height: 'var(--min-tap-target)',
-            borderRadius: 'var(--radius-sm)',
-            border: 'none',
-            color: 'var(--color-primary-text)',
-            cursor: 'pointer',
-            padding: 0,
-          }}
+          aria-label="Back to ScamSignal home"
+          className="btn-back"
+          type="button"
         >
-          <ArrowLeft size={22} />
+          <ArrowLeft size={22} aria-hidden="true" />
         </button>
 
         <span
@@ -70,7 +60,7 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
             color: 'var(--color-accent)',
             backgroundColor: 'rgba(77, 228, 192, 0.08)',
             border: '1px solid rgba(77, 228, 192, 0.25)',
-            padding: '3px 10px',
+            padding: '4px 10px',
             borderRadius: 'var(--radius-pill)',
           }}
         >
@@ -78,78 +68,80 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
         </span>
       </header>
 
-      {/* Main Content Area */}
+      {/* Main Content Area - Balanced Vertical Flow */}
       <main
         style={{
           display: 'flex',
           flexDirection: 'column',
           flex: 1,
-          padding: 'var(--space-5) var(--space-4)',
-          gap: 'var(--space-5)',
+          padding: 'var(--space-4) var(--space-4) var(--space-5)',
+          gap: 'var(--space-4)',
         }}
       >
         {/* Title and Badge */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
           <span
             className="text-mono"
             style={{
               color: 'var(--color-warning)',
-              display: 'flex',
+              display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
+              fontSize: '11px',
             }}
           >
-            <AlertTriangle size={14} /> Incident Casefile #01
+            <AlertTriangle size={13} /> Incident Casefile #01
           </span>
-          <h1 className="text-title" style={{ margin: 0 }}>
+          <h1 id="briefing-title" className="text-title" tabIndex={-1} style={{ margin: 0 }}>
             {meta.title}
           </h1>
-          <span className="text-supporting" style={{ color: 'var(--color-secondary-text)', fontSize: '15px' }}>
+          <span className="text-supporting" style={{ color: 'var(--color-secondary-text)', fontSize: '14px' }}>
             {meta.subtitle}
           </span>
         </div>
 
-        {/* Setup Narrative Card */}
+        {/* Tactical Narrative Card */}
         <Card variant="raised" padding="standard">
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
             <span className="text-mono" style={{ color: 'var(--color-muted-text)', fontSize: '11px' }}>
               TACTICAL BRIEFING
             </span>
-            <p className="text-body" style={{ color: 'var(--color-primary-text)', lineHeight: 1.55 }}>
+            <p className="text-body" style={{ color: 'var(--color-primary-text)', lineHeight: 1.5, fontSize: '15px' }}>
               {meta.setup}
             </p>
           </div>
         </Card>
 
-        {/* Objective & Meta details */}
+        {/* Objective & Meta Details */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>
           <div
             style={{
               display: 'flex',
               alignItems: 'flex-start',
               gap: 'var(--space-3)',
-              padding: 'var(--space-4)',
+              padding: '12px 14px',
               backgroundColor: 'var(--color-surface)',
-              borderRadius: 'var(--radius-card)',
+              borderRadius: 'var(--radius-md)',
               border: '1px solid var(--color-border)',
             }}
           >
             <div
               style={{
                 backgroundColor: 'rgba(77, 228, 192, 0.1)',
-                padding: '8px',
+                padding: '6px',
                 borderRadius: 'var(--radius-sm)',
                 color: 'var(--color-accent)',
                 flexShrink: 0,
+                marginTop: '2px',
               }}
             >
-              <Target size={20} />
+              <Target size={18} />
             </div>
             <div>
-              <span className="text-mono" style={{ color: 'var(--color-accent)', fontSize: '11px' }}>
+              <span className="text-mono" style={{ color: 'var(--color-accent)', fontSize: '10px' }}>
                 PRIMARY LEARNING OBJECTIVE
               </span>
-              <p className="text-body" style={{ fontSize: '14px', marginTop: '4px' }}>
+              <p className="text-body" style={{ fontSize: '13px', marginTop: '3px', lineHeight: 1.45 }}>
                 {meta.learningObjective}
               </p>
             </div>
@@ -167,16 +159,16 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                padding: '12px',
+                padding: '10px 12px',
                 backgroundColor: 'var(--color-surface)',
-                borderRadius: 'var(--radius-card)',
+                borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--color-border)',
               }}
             >
-              <Clock size={16} color="var(--color-muted-text)" />
+              <Clock size={15} color="var(--color-muted-text)" />
               <div>
                 <div style={{ fontSize: '10px', color: 'var(--color-muted-text)', fontFamily: 'var(--font-mono)' }}>
-                  TIME ESTIMATE
+                  ESTIMATED DURATION
                 </div>
                 <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-primary-text)' }}>
                   {meta.estimatedDuration}
@@ -189,16 +181,16 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 gap: '8px',
-                padding: '12px',
+                padding: '10px 12px',
                 backgroundColor: 'var(--color-surface)',
-                borderRadius: 'var(--radius-card)',
+                borderRadius: 'var(--radius-md)',
                 border: '1px solid var(--color-border)',
               }}
             >
-              <ShieldCheck size={16} color="var(--color-accent)" />
+              <ShieldCheck size={15} color="var(--color-accent)" />
               <div>
                 <div style={{ fontSize: '10px', color: 'var(--color-muted-text)', fontFamily: 'var(--font-mono)' }}>
-                  EVIDENCE PIECES
+                  INVESTIGATIVE SIGNALS
                 </div>
                 <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-primary-text)' }}>
                   {meta.keyCluesCount} Clues Hidden
@@ -208,36 +200,36 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
           </div>
         </div>
 
-        {/* Preview Notice Banner */}
+        {/* Natural Player-Facing Preview Banner */}
         <div
           style={{
-            padding: '12px',
+            padding: '10px 12px',
             backgroundColor: 'rgba(255, 203, 107, 0.08)',
             border: '1px solid rgba(255, 203, 107, 0.3)',
             borderRadius: 'var(--radius-md)',
             color: 'var(--color-warning)',
-            fontSize: '13px',
+            fontSize: '12px',
             lineHeight: 1.45,
           }}
         >
-          <strong>Batch 1 Preview Note:</strong> You are entering the visual preview shell for Mission 1. Interactive branching, decision choices, and scoring will unlock in Batch 2.
+          <strong>Preview Mode:</strong> Review the incoming scenario and suspected indicators before interactive decision checkpoints begin.
         </div>
 
-        {/* Action Zone */}
+        {/* Action Zone - Anchored Cleanly Near Bottom */}
         <div
           style={{
             marginTop: 'auto',
-            paddingTop: 'var(--space-6)',
+            paddingTop: 'var(--space-3)',
             display: 'flex',
             flexDirection: 'column',
-            gap: 'var(--space-3)',
+            gap: 'var(--space-2)',
           }}
         >
           <Button
             variant="primary"
             onClick={onBeginPreview}
             fullWidth
-            aria-label="Begin Preview of Mission 1 Simulation Shell"
+            aria-label="Begin Preview of Mission 1 Scenario"
           >
             Begin Preview
           </Button>
@@ -246,7 +238,6 @@ export const MissionBriefingPage: React.FC<MissionBriefingPageProps> = ({
             variant="ghost"
             onClick={onBack}
             fullWidth
-            aria-label="Return to ScamSignal Home"
           >
             Back to Home
           </Button>

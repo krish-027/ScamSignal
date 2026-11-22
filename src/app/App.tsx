@@ -4,9 +4,10 @@ import { GlobalErrorBoundary } from '../components/common/GlobalErrorBoundary';
 import { HomePage } from '../features/home/HomePage';
 import { MissionBriefingPage } from '../features/missions/MissionBriefingPage';
 import { SimulationPreviewPage } from '../features/missions/SimulationPreviewPage';
+import { Button } from '../components/ui/Button';
 
 export const App: React.FC = () => {
-  const { currentRoute, navigateTo } = useNavigation();
+  const { currentRoute, announcement, navigateTo } = useNavigation();
 
   const renderCurrentView = () => {
     switch (currentRoute) {
@@ -21,28 +22,36 @@ export const App: React.FC = () => {
         );
       case 'preview':
         return <SimulationPreviewPage onReturnToBriefing={() => navigateTo('briefing')} />;
+      case 'not-found':
       default:
         return (
-          <div
+          <main
+            id="main-content"
+            className="view-transition"
             style={{
-              padding: 'var(--space-8)',
+              padding: 'var(--space-12) var(--space-5)',
               textAlign: 'center',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
               gap: 'var(--space-4)',
+              maxWidth: '480px',
+              margin: 'auto',
             }}
           >
-            <h1 className="text-title">Route Not Found</h1>
-            <p className="text-body">The requested simulation view is not recognized.</p>
-            <button
+            <h1 className="text-title" tabIndex={-1}>
+              Page Not Found
+            </h1>
+            <p className="text-body" style={{ color: 'var(--color-secondary-text)' }}>
+              The requested simulation route does not exist. Return to the briefing or main home canvas.
+            </p>
+            <Button
+              variant="primary"
               onClick={() => navigateTo('home')}
-              className="app-button btn-primary"
-              style={{ padding: '0 20px', minHeight: '44px' }}
             >
               Return to ScamSignal Home
-            </button>
-          </div>
+            </Button>
+          </main>
         );
     }
   };
@@ -50,6 +59,15 @@ export const App: React.FC = () => {
   return (
     <GlobalErrorBoundary>
       <div className="bg-atmosphere" aria-hidden="true" />
+      {/* Route change announcer for screen readers */}
+      <div
+        className="sr-only"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {announcement}
+      </div>
       <div
         className="app-shell"
         style={{

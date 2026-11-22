@@ -1,3 +1,8 @@
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/space-grotesk/700.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
 @import './tokens.css';
 
 *, *::before, *::after {
@@ -27,22 +32,40 @@ body {
   position: relative;
 }
 
-/* Atmospheric background effect */
+/* Atmospheric subtle background */
 .bg-atmosphere {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
   background: 
-    radial-gradient(circle at 50% 0%, rgba(77, 228, 192, 0.07) 0%, transparent 60%),
-    radial-gradient(circle at 85% 30%, rgba(34, 207, 165, 0.04) 0%, transparent 50%),
-    radial-gradient(circle at 15% 70%, rgba(20, 39, 59, 0.4) 0%, transparent 70%);
+    radial-gradient(circle at 50% 0%, rgba(77, 228, 192, 0.06) 0%, transparent 60%),
+    radial-gradient(circle at 85% 30%, rgba(34, 207, 165, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 15% 70%, rgba(20, 39, 59, 0.35) 0%, transparent 70%);
+}
+
+/* Accessible Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Focus Visibility Standards */
 :focus-visible {
   outline: 2px solid var(--color-focus) !important;
   outline-offset: 3px !important;
+}
+
+/* Programmatic focus targets without outline if not keyboard */
+[tabindex="-1"]:focus {
+  outline: none !important;
 }
 
 /* Typography Classes */
@@ -139,16 +162,13 @@ body {
   text-transform: uppercase;
 }
 
-/* Reduced Motion Override */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+/* Button Base & Variant Styles */
+.app-button {
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background-color var(--motion-micro), transform var(--motion-micro), border-color var(--motion-micro), box-shadow var(--motion-micro);
 }
-/* Button Interactivity Styles */
+
 .app-button:not(:disabled):hover {
   transform: translateY(-1px);
 }
@@ -172,10 +192,97 @@ body {
   color: var(--color-primary-text) !important;
 }
 
-.btn-danger:not(:disabled):hover {
-  background-color: rgba(255, 107, 122, 0.25) !important;
+/* Explicit Back Button Style (Mandatory UI fix for all back triggers) */
+.btn-back {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: var(--min-tap-target) !important;
+  height: var(--min-tap-target) !important;
+  min-width: var(--min-tap-target) !important;
+  min-height: var(--min-tap-target) !important;
+  border-radius: var(--radius-sm) !important;
+  background-color: var(--color-surface-raised) !important;
+  border: 1px solid var(--color-border) !important;
+  color: var(--color-primary-text) !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  transition: background-color var(--motion-micro), border-color var(--motion-micro), color var(--motion-micro), transform var(--motion-micro) !important;
 }
-/* Responsive layout overrides for Home and Stage */
+
+.btn-back:hover {
+  background-color: #1a324b !important;
+  border-color: #3d5e82 !important;
+  color: var(--color-accent) !important;
+  transform: translateY(-1px);
+}
+
+.btn-back:active {
+  transform: translateY(1px);
+}
+
+/* Cards & Surface Polish */
+.card-raised {
+  background: linear-gradient(180deg, var(--color-surface-raised) 0%, #102133 100%) !important;
+}
+
+.card-interactive:hover {
+  border-color: rgba(77, 228, 192, 0.28) !important;
+}
+
+/* Staggered Animations */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes viewFadeIn {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-hero-1 {
+  animation: heroFadeUp 260ms cubic-bezier(0, 0, 0.2, 1) 0ms both;
+}
+
+.animate-hero-2 {
+  animation: heroFadeUp 260ms cubic-bezier(0, 0, 0.2, 1) 70ms both;
+}
+
+.animate-hero-3 {
+  animation: heroFadeUp 260ms cubic-bezier(0, 0, 0.2, 1) 140ms both;
+}
+
+.animate-hero-card {
+  animation: cardPopIn 300ms cubic-bezier(0, 0, 0.2, 1) 100ms both;
+}
+
+.view-transition {
+  animation: viewFadeIn 160ms cubic-bezier(0, 0, 0.2, 1) both;
+}
+
+/* Responsive layout overrides */
 @media (min-width: 1024px) {
   .hero-section {
     grid-template-columns: 1.15fr 0.85fr !important;
@@ -191,11 +298,25 @@ body {
   .steps-grid {
     grid-template-columns: 1fr !important;
   }
-}
-
-/* Narrow mobile screen adjustments (<360px) */
-@media (max-width: 359px) {
   .brand-badge {
     display: none !important;
+  }
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-hero-1,
+  .animate-hero-2,
+  .animate-hero-3,
+  .animate-hero-card,
+  .view-transition {
+    animation: none !important;
+    transform: none !important;
   }
 }

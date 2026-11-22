@@ -1,37 +1,67 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { App } from '../app/App';
+import { getRouteFromHash } from '../app/navigation';
 
-describe('User Journey & Navigation', () => {
+function setHash(hash: string) {
+  window.history.replaceState(null, '', hash);
+}
+
+describe('ScamSignal routing and accessibility', () => {
   beforeEach(() => {
-    window.location.hash = '';
+    setHash('#/');
   });
 
-  it('navigates from Home to Mission Briefing and to Simulation Preview and back', () => {
+  it('parses canonical and unexpected hashes', () => {
+    expect(getRouteFromHash('')).toBe('home');
+    expect(getRouteFromHash('#/')).toBe('home');
+    expect(getRouteFromHash('#/briefing')).toBe('briefing');
+    expect(getRouteFromHash('#/preview')).toBe('preview');
+    expect(getRouteFromHash('#/nonexistent')).toBe('not-found');
+  });
+
+  it('navigates Home to Briefing to Preview and back', async () => {
     render(<App />);
-
-    // 1. Initially on Home
     expect(screen.getByRole('heading', { level: 1, name: /the internet is testing you/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /start investigation/i })).toBeInTheDocument();
-
-    // 2. Click Start Investigation -> goes to Briefing
     fireEvent.click(screen.getByRole('button', { name: /start investigation/i }));
+    expect(window.location.hash).toBe('#/briefing');
     expect(screen.getByRole('heading', { level: 1, name: /the missing package/i })).toBeInTheDocument();
-    expect(screen.getByText(/MISSION 01 \/ 03/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /begin preview/i })).toBeInTheDocument();
-
-    // 3. Click Begin Preview -> goes to Simulation Preview
     fireEvent.click(screen.getByRole('button', { name: /begin preview/i }));
-    expect(screen.getByText('SpeedPost Dispatch')).toBeInTheDocument();
-    expect(screen.getByText(/DECISION ENGINE STATUS: STANDBY/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /return to mission 1 briefing/i })).toBeInTheDocument();
-
-    // 4. Click Return to Briefing -> returns to Briefing
+    expect(window.location.hash).toBe('#/preview');
+    expect(screen.getByRole('heading', { level: 1, name: /speedpost courier/i })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /return to mission 1 briefing/i }));
     expect(screen.getByRole('heading', { level: 1, name: /the missing package/i })).toBeInTheDocument();
-
-    // 5. Click Back to Home -> returns to Home
     fireEvent.click(screen.getByRole('button', { name: /back to home/i }));
     expect(screen.getByRole('heading', { level: 1, name: /the internet is testing you/i })).toBeInTheDocument();
+    expect(screen.getByRole('main')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { level: 1 })).toHaveFocus();
+    });
+  });
+
+  it('supports direct navigation into the briefing', () => {
+    setHash('#/briefing');
+    render(<App />);
+    expect(screen.getByRole('heading', { level: 1, name: /the missing package/i })).toBeInTheDocument();
+  });
+
+  it('shows recovery for unknown hashes', () => {
+    setHash('#/unknown');
+    render(<App />);
+    expect(screen.getByRole('heading', { level: 1, name: /page not found/i })).toBeInTheDocument();
+    expect(screen.getByRole('main')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /return to scamsignal home/i }));
+    expect(screen.getByRole('heading', { level: 1, name: /the internet is testing you/i })).toBeInTheDocument();
+  });
+
+  it('responds to hashchange and moves focus to the destination heading', async () => {
+    render(<App />);
+    act(() => {
+      setHash('#/preview');
+      fireEvent(window, new Event('hashchange'));
+    });
+    const title = screen.getByRole('heading', { level: 1, name: /speedpost courier/i });
+    await waitFor(() => expect(title).toHaveFocus());
+    expect(screen.getByRole('status')).toHaveTextContent(/simulation preview/i);
   });
 });
