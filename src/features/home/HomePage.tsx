@@ -4,6 +4,7 @@ import { BrandMark } from '../../components/ui/BrandMark';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
 import './homePage.css';
+import './homeWide.css';
 
 interface HomePageProps {
   onStart: () => void;

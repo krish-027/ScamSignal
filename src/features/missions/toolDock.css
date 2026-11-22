@@ -1,0 +1,76 @@
+/* Batch 2D: investigative apps are round icon shortcuts, unlike the OS controls. */
+.phone-tool-dock {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: 4px;
+  padding: 8px 8px 7px;
+  background: #07111d;
+  border-top: 1px solid rgba(220, 239, 255, .28);
+}
+.phone-tool-dock > button {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  min-height: 70px;
+  padding: 3px 2px;
+  border: 0 !important;
+  border-radius: 12px;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #f2f8ff;
+  cursor: pointer;
+  font: 600 11px/1.2 var(--font-body);
+}
+.phone-tool-dock > button .phone-tool-icon {
+  width: 45px;
+  height: 45px;
+  flex: 0 0 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  box-shadow: inset 0 0 14px rgba(255,255,255,.035), 0 3px 10px rgba(0,0,0,.32);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.phone-tool-dock > button:nth-child(1) .phone-tool-icon {
+  color: #55ead2;
+  background: #13363e;
+}
+.phone-tool-dock > button:nth-child(2) .phone-tool-icon {
+  color: #ffca72;
+  background: #403323;
+}
+.phone-tool-dock > button:nth-child(3) .phone-tool-icon {
+  color: #b8b1ff;
+  background: #2a2c4b;
+}
+.phone-tool-dock > button .phone-tool-label {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #e7f3fd;
+}
+.phone-tool-dock > button:hover:not(:disabled) .phone-tool-icon {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 3px rgba(255,255,255,.09), 0 4px 13px rgba(0,0,0,.3);
+}
+.phone-tool-dock > button:focus-visible { outline: 2px solid #a3f9de !important; outline-offset: 1px; }
+.phone-tool-dock > button:disabled { opacity: .52; cursor: not-allowed; }
+.phone-tool-dock > button:disabled .phone-tool-icon { filter: saturate(.5); }
+/* The lower Back / Home / Recent navigation retains its distinct rectangular style. */
+@media (max-width: 359px) {
+  .phone-tool-dock > button { min-height: 68px; }
+  .phone-tool-dock > button .phone-tool-icon { width: 42px; height: 42px; flex-basis: 42px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .phone-tool-dock > button .phone-tool-icon { transition: none; }
+  .phone-tool-dock > button:hover:not(:disabled) .phone-tool-icon { transform: none; }
+}
+.phone-tool-dock > button .phone-tool-icon svg { color: currentColor !important; }

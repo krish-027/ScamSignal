@@ -7,6 +7,7 @@ import {
 import { PhoneStage } from '../../components/game/PhoneStage';
 import { PhonePanel } from '../../components/game/PhonePanel';
 import { Button } from '../../components/ui/Button';
+import { MissionReview } from './MissionReview';
 import { displayChoices } from './choiceOrder';
 import { DecisionImpact, SignalReveal } from './CinematicReveal';
 import './cinematic.css';
@@ -14,6 +15,7 @@ import { advance, choose, getCurrentScene, inspectClue } from './engine/missionE
 import { PARCEL_MISSION } from './data/parcelMission';
 import type { CheckpointId, Clue, GameSessionState, Scene } from '../../types/mission';
 import './investigation.css';
+import './toolDock.css';
 
 interface InvestigationPageProps {
   session: GameSessionState;
@@ -229,7 +231,8 @@ export function InvestigationPage({ session, onUpdate, onStart, onReplay, onExit
                       </>
                     ) : scene.kind === 'debrief' ? (
                       <>
-                        <Button fullWidth onClick={event => requestRestart(event.currentTarget)}>Replay Mission</Button>
+                        <MissionReview record={record} definition={MISSION} />
+                      <Button fullWidth onClick={event => requestRestart(event.currentTarget)}>Replay Mission</Button>
                         <Button fullWidth variant="secondary" onClick={onExit}>Return to Briefing</Button>
                       </>
                     ) : (
@@ -247,14 +250,14 @@ export function InvestigationPage({ session, onUpdate, onStart, onReplay, onExit
           <nav className="phone-tool-dock" aria-label="Phone investigation tools">
             <button type="button" disabled={!scene || availableEvidence.length === 0}
               onClick={event => openTool('evidence', event.currentTarget)}>
-              <FileSearch size={21} aria-hidden="true" /><span>Evidence</span>
+              <span className="phone-tool-icon" aria-hidden="true"><FileSearch size={21} /></span><span className="phone-tool-label">Evidence</span>
             </button>
             <button type="button" disabled={!scene || !isPlayable}
               onClick={event => openTool('hint', event.currentTarget)}>
-              <Lightbulb size={21} aria-hidden="true" /><span>Hint</span>
+              <span className="phone-tool-icon" aria-hidden="true"><Lightbulb size={21} /></span><span className="phone-tool-label">Hint</span>
             </button>
             <button type="button" onClick={event => openTool('case-log', event.currentTarget)}>
-              <History size={21} aria-hidden="true" /><span>Case Log</span>
+              <span className="phone-tool-icon" aria-hidden="true"><History size={21} /></span><span className="phone-tool-label">Case Log</span>
             </button>
           </nav>
           <nav className="phone-system-nav" aria-label="Simulated phone navigation">

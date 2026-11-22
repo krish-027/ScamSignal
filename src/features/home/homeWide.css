@@ -1,0 +1,43 @@
+/* Batch 2D: public landing page uses responsive gutters, NOT a 1120px canvas. */
+.home-page-container {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100dvh;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  padding-inline: clamp(18px, 3.2vw, 64px) !important;
+}
+
+/* Preserve a natural document flow; only the game phone is height-fitted. */
+.home-page-container .hero-section {
+  min-width: 0;
+}
+.home-page-container .hero-section > * {
+  min-width: 0;
+}
+.home-page-container .steps-grid {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .home-page-container .hero-section {
+    grid-template-columns: minmax(0, 1.07fr) minmax(0, .93fr) !important;
+    gap: clamp(24px, 4vw, 80px) !important;
+  }
+  .home-page-container .hero-section > div:first-child > p {
+    max-width: 680px !important;
+  }
+  .home-page-container .hero-preview-column > div:last-child {
+    max-width: 560px !important;
+  }
+}
+@media (max-width: 767px) {
+  .home-page-container .hero-preview-column > div:last-child {
+    max-width: 480px !important;
+  }
+}
+@media (max-width: 359px) {
+  .home-page-container { padding-inline: 16px !important; }
+}
