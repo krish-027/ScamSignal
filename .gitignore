@@ -44,3 +44,6 @@ Thumbs.db
 
 *.tsbuildinfo
 verify-batch1.mjs
+
+# Local backup files
+*.bak
